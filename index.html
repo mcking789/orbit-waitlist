@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Orbit — Your Future, Organized</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:
+radial-gradient(circle at 15% 20%, rgba(59,130,246,.20), transparent 30%),
+radial-gradient(circle at 85% 80%, rgba(96,165,250,.15), transparent 35%),
+linear-gradient(180deg,#030712,#0b1020);
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+position:relative;
+}
+
+.blur1{
+position:absolute;
+width:550px;
+height:550px;
+background:#2563eb;
+filter:blur(220px);
+opacity:.18;
+top:-200px;
+left:-200px;
+border-radius:9999px;
+}
+
+.blur2{
+position:absolute;
+width:500px;
+height:500px;
+background:#60a5fa;
+filter:blur(220px);
+opacity:.12;
+bottom:-200px;
+right:-200px;
+border-radius:9999px;
+}
+
+.container{
+width:min(1100px,90%);
+margin:auto;
+position:relative;
+z-index:2;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.logo{
+font-size:5rem;
+font-weight:800;
+letter-spacing:-6px;
+
+background:linear-gradient(
+90deg,
+#ffffff,
+#c7d2fe,
+#60a5fa
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.badge{
+padding:12px 22px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+border-radius:999px;
+margin-bottom:25px;
+font-size:.9rem;
+color:#cbd5e1;
+}
+
+.hero h1{
+font-size:4rem;
+line-height:1.05;
+max-width:900px;
+margin-bottom:25px;
+}
+
+.hero p{
+max-width:700px;
+font-size:1.15rem;
+line-height:1.8;
+color:#94a3b8;
+margin-bottom:40px;
+}
+
+.waitlist-card{
+width:min(650px,100%);
+padding:35px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(25px);
+border-radius:32px;
+}
+
+.input{
+width:100%;
+padding:18px;
+margin-bottom:15px;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:20px;
+outline:none;
+color:white;
+font-size:1rem;
+}
+
+.input::placeholder{
+color:#64748b;
+}
+
+.button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:20px;
+font-weight:700;
+font-size:1rem;
+cursor:pointer;
+
+background:linear-gradient(
+90deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+transition:.3s;
+}
+
+.button:hover{
+transform:translateY(-3px);
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding-bottom:100px;
+}
+
+.feature{
+padding:30px;
+border-radius:30px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(25px);
+}
+
+.feature h3{
+margin-bottom:12px;
+font-size:1.2rem;
+}
+
+.feature p{
+color:#94a3b8;
+line-height:1.7;
+}
+
+.footer{
+text-align:center;
+padding:40px;
+color:#64748b;
+}
+
+@media(max-width:768px){
+
+.logo{
+font-size:3.5rem;
+}
+
+.hero h1{
+font-size:2.5rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="blur1"></div>
+<div class="blur2"></div>
+
+<div class="container">
+
+<section class="hero">
+
+<div class="badge">
+Launching Soon
+</div>
+
+<div class="logo">
+orbit
+</div>
+
+<h1>
+Your Future,<br>
+Organized.
+</h1>
+
+<p>
+Orbit brings together planning, opportunities, goals,
+journaling, and productivity into one intelligent workspace
+for students and young professionals.
+</p>
+
+<div class="waitlist-card">
+
+<form>
+
+<input class="input" type="text" placeholder="Full Name">
+
+<input class="input" type="email" placeholder="Email Address">
+
+<select class="input">
+<option>Student</option>
+<option>College Student</option>
+<option>Working Professional</option>
+</select>
+
+<button class="button">
+Request Early Access
+</button>
+
+</form>
+
+</div>
+
+</section>..
+
+<section class="features">
+
+<div class="feature">
+<h3>Planning</h3>
+<p>
+Build schedules, timetables and daily routines that keep you focused.
+</p>
+</div>
+
+<div class="feature">
+<h3>Opportunities</h3>
+<p>
+Discover scholarships, internships, competitions and career paths.
+</p>
+</div>
+
+<div class="feature">
+<h3>Growth</h3>
+<p>
+Track goals, journal progress and build long-term consistency.
+</p>
+</div>
+
+</section>
+
+<div class="footer">
+Orbit © 2026
+</div>
+
+</div>
+
+</body>
+</html>
