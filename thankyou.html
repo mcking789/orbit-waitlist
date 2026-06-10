@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Welcome to Orbit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:
+radial-gradient(circle at 15% 20%, rgba(59,130,246,.20), transparent 30%),
+radial-gradient(circle at 85% 80%, rgba(96,165,250,.15), transparent 35%),
+linear-gradient(180deg,#030712,#0b1020);
+
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+.blur1{
+position:fixed;
+width:600px;
+height:600px;
+background:#2563eb;
+filter:blur(220px);
+opacity:.15;
+top:-200px;
+left:-200px;
+border-radius:9999px;
+}
+
+.blur2{
+position:fixed;
+width:500px;
+height:500px;
+background:#60a5fa;
+filter:blur(220px);
+opacity:.10;
+bottom:-200px;
+right:-200px;
+border-radius:9999px;
+}
+
+.nav{
+padding:30px 80px;
+font-size:2rem;
+font-weight:800;
+letter-spacing:-2px;
+}
+
+.container{
+width:min(1200px,90%);
+margin:auto;
+padding-top:40px;
+padding-bottom:80px;
+}
+
+.hero{
+text-align:center;
+margin-bottom:80px;
+}
+
+.hero h1{
+font-size:4rem;
+margin-bottom:20px;
+}
+
+.hero p{
+color:#94a3b8;
+font-size:1.15rem;
+max-width:700px;
+margin:auto;
+line-height:1.8;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+margin-bottom:60px;
+}
+
+.card{
+padding:35px;
+border-radius:32px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(25px);
+}
+
+.card h2{
+margin-bottom:20px;
+}
+
+.card p{
+color:#94a3b8;
+line-height:1.8;
+}
+
+.card ul{
+margin-left:20px;
+line-height:2;
+color:#cbd5e1;
+}
+
+.message{
+padding:30px;
+border-radius:30px;
+text-align:center;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+margin-bottom:70px;
+}
+
+.team{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+.member{
+padding:35px;
+border-radius:30px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.role{
+color:#60a5fa;
+font-size:.9rem;
+letter-spacing:2px;
+margin-bottom:10px;
+}
+
+.name{
+font-size:2rem;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.bio{
+color:#94a3b8;
+line-height:1.8;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:2.5rem;
+}
+
+.team{
+grid-template-columns:1fr;
+}
+
+.nav{
+padding:30px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="blur1"></div>
+<div class="blur2"></div>
+
+<div class="nav">
+orbit
+</div>
+
+<div class="container">
+
+<div class="hero">
+<h1>Thank You.</h1>
+
+<p>
+You're officially on the Orbit waitlist.
+Thank you for joining us early and becoming part of the journey.
+</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h2>What is Orbit?</h2>
+
+<p>
+Orbit is a personal growth platform built for students and young professionals.
+It helps users organize their lives, build skills, manage goals and discover opportunities.
+</p>
+</div>
+
+<div class="card">
+<h2>What Will Orbit Help With?</h2>
+
+<ul>
+<li>Daily planning & schedules</li>
+<li>Timetables & productivity</li>
+<li>Goal tracking</li>
+<li>Skill learning</li>
+<li>Journaling</li>
+<li>Scholarships & internships</li>
+<li>Career opportunities</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Our Mission</h2>
+
+<p>
+To help ambitious people stay organized, keep learning and unlock opportunities that move them closer to their goals.
+</p>
+</div>
+
+</div>
+
+<div class="message">
+
+<h2>We're Building Something Bigger</h2>
+
+<br>
+
+<p style="color:#94a3b8;">
+Orbit isn't just another productivity app.
+We're building a complete Life Operating System for the next generation.
+</p>
+
+</div>
+
+<div class="team">
+
+<div class="member">
+<div class="role">FOUNDER</div>
+<div class="name">Siddhesh</div>
+
+<div class="bio">
+Building Orbit with the vision of helping people grow, learn and achieve more.
+</div>
+</div>
+
+<div class="member">
+<div class="role">CO-FOUNDER</div>
+<div class="name">Coming Soon</div>
+
+<div class="bio">
+Looking for passionate builders who believe in the future of Orbit.
+</div>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
