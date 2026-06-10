@@ -38,6 +38,9 @@ opacity:.15;
 top:-200px;
 left:-200px;
 border-radius:9999px;
+
+animation: float1 30s ease-in-out infinite;
+will-change: transform;
 }
 
 .blur2{
@@ -50,6 +53,33 @@ opacity:.10;
 bottom:-200px;
 right:-200px;
 border-radius:9999px;
+
+animation: float2 40s ease-in-out infinite;
+will-change: transform;
+}
+
+@keyframes float1{
+0%{
+transform:translate(0px,0px);
+}
+50%{
+transform:translate(30px,20px);
+}
+100%{
+transform:translate(0px,0px);
+}
+}
+
+@keyframes float2{
+0%{
+transform:translate(0px,0px);
+}
+50%{
+transform:translate(-25px,-15px);
+}
+100%{
+transform:translate(0px,0px);
+}
 }
 
 .nav{
