@@ -426,23 +426,29 @@ for students and young professionals.
 
 <form id="waitlistForm" action="https://formspree.io/f/xaqzjzgz" method="POST">
 
-<input
-class="input"
-type="text"
-name="name"
-placeholder="Full Name"
-required>
+<div class="form-section">
 
-<input
-class="input"
-type="email"
-name="email"
-placeholder="Email Address"
-required>
+    <h3>Basic Information</h3>
 
-<div class="role-selector">
+    <input
+        class="input"
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        required>
 
-    <p class="role-title">I am a...</p>
+    <input
+        class="input"
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        required>
+
+</div>
+
+<div class="form-section">
+
+    <h3>Personalize Your Orbit</h3>
 
     <div class="role-grid">
 
@@ -473,7 +479,7 @@ required>
 </div>
 
 <button class="button">
-Join the Waitlist
+    Join the Waitlist
 </button>
 
 </form>
