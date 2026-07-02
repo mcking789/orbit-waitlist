@@ -517,64 +517,62 @@ for students and young professionals.
 
 <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 
-<h3>Basic Information</h3>
+<div class="form-section">
 
-<input
-class="input"
-type="text"
-name="name"
-placeholder="Full Name"
-required>
+    <h3>Basic Information</h3>
 
-<input
-class="input"
-type="email"
-name="email"
-placeholder="Email Address"
-required>
+    <input
+        class="input"
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        required>
 
-
-<h3>I am a..</h3>
-
-<div class="role-grid">
-
-<button type="button" class="role-btn" onclick="setRole('Student')">
-🎓 Student
-</button>
-
-<button type="button" class="role-btn" onclick="setRole('College Student')">
-🏫 College Student
-</button>
-
-<button type="button" class="role-btn" onclick="setRole('Working Professional')">
-💼 Working Professional
-</button>
-
-<button type="button" class="role-btn" onclick="setRole('Others')">
-🌍 Others
-</button>
+    <input
+        class="input"
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        required>
 
 </div>
 
+<div class="form-section">
 
-<input 
-type="hidden" 
-name="role" 
-id="roleInput"
-value="Student">
+    <h3>Personalize Your Orbit</h3>
 
+    <div class="role-grid">
 
-<input 
-type="hidden" 
-name="_next" 
-value="thankyou.html">
+        <button type="button" class="role-btn active" data-role="Student">
+            🎓 Student
+        </button>
 
+        <button type="button" class="role-btn" data-role="College Student">
+            🏫 College Student
+        </button>
 
-<button type="submit">
-Join Waitlist
+        <button type="button" class="role-btn" data-role="Working Professional">
+            💼 Working Professional
+        </button>
+
+        <button type="button" class="role-btn" data-role="Others">
+            🌍 Others
+        </button>
+
+    </div>
+
+    <input
+        type="hidden"
+        name="role"
+        id="roleInput"
+        value="Student">
+
+</div>
+
+<button class="button">
+    Join the Waitlist
 </button>
-
-
+ 
 </form>
 
 </div>
@@ -612,27 +610,39 @@ Orbit © 2026
 
 </div>
 <script>
-
-const buttons = document.querySelectorAll(".role-btn");
+const roleButtons = document.querySelectorAll(".role-btn");
 const roleInput = document.getElementById("roleInput");
 
-buttons.forEach(button => {
+roleButtons.forEach(button=>{
 
-    button.addEventListener("click", () => {
+button.addEventListener("click",()=>{
 
-        buttons.forEach(btn => {
-            btn.classList.remove("active");
-        });
+roleButtons.forEach(btn=>btn.classList.remove("active"));
 
-        button.classList.add("active");
+button.classList.add("active");
 
-        roleInput.value = button.dataset.role;
-     
-
-    });
+roleInput.value=button.dataset.role;
 
 });
 
+});
+ const form = document.querySelector("form");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+
+  await fetch(form.action, {
+    method: "POST",
+    body: data,
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  window.location.href = "thankyou.html";
+});
 </script>
 </body>
 </html>
