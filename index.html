@@ -9,6 +9,126 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
+  .custom-select{
+position:relative;
+width:100%;
+margin-bottom:20px;
+}
+
+.selected{
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+padding:18px 22px;
+
+border-radius:16px;
+
+cursor:pointer;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+font-size:17px;
+
+transition:.3s;
+}
+
+.selected:hover{
+
+border-color:#3b82f6;
+
+}
+
+.arrow{
+
+transition:.3s;
+
+font-size:13px;
+
+}
+
+.options{
+
+position:absolute;
+
+top:110%;
+
+left:0;
+
+width:100%;
+
+background:#111827;
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:16px;
+
+overflow:hidden;
+
+display:none;
+
+z-index:999;
+
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+}
+
+.option{
+
+padding:16px 22px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.option:hover{
+
+background:#2563eb;
+
+}
+
+.custom-select.active .options{
+
+display:block;
+
+animation:dropdown .25s ease;
+
+}
+
+.custom-select.active .arrow{
+
+transform:rotate(180deg);
+
+}
+
+@keyframes dropdown{
+
+from{
+
+opacity:0;
+
+transform:translateY(-10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
   .space-bg{
 position:fixed;
 top:0;
@@ -427,11 +547,28 @@ name="email"
 placeholder="Email Address"
 required>
 
-<select class="input" name="role">
-<option>Student</option>
-<option>College Student</option>
-<option>Working Professional</option>
-</select>
+<div class="custom-select">
+
+    <div class="selected">
+        <span id="selected-text">Student</span>
+        <span class="arrow">▼</span>
+    </div>
+
+    <div class="options">
+
+        <div class="option">Student</div>
+
+        <div class="option">College Student</div>
+
+        <div class="option">Working Professional</div>
+
+        <div class="option">Others</div>
+
+    </div>
+
+    <input type="hidden" name="role" id="roleInput" value="Student">
+
+</div>
 
 <button class="button">
 Join the Waitlist
@@ -498,6 +635,48 @@ alert("Something went wrong. Please try again.");
 }
 
 });
+
+<script>
+
+const select=document.querySelector(".custom-select");
+
+const selected=document.querySelector(".selected");
+
+const options=document.querySelectorAll(".option");
+
+const text=document.getElementById("selected-text");
+
+const input=document.getElementById("roleInput");
+
+selected.onclick=()=>{
+
+select.classList.toggle("active");
+
+};
+
+options.forEach(option=>{
+
+option.onclick=()=>{
+
+text.innerHTML=option.innerHTML;
+
+input.value=option.innerHTML;
+
+select.classList.remove("active");
+
+};
+
+});
+
+window.onclick=(e)=>{
+
+if(!select.contains(e.target)){
+
+select.classList.remove("active");
+
+}
+
+};
 
 </script>
 </body>
