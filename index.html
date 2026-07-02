@@ -540,46 +540,22 @@ if (form) {
 
     });
 }
-const customSelect = document.querySelector(".custom-select");
+const buttons = document.querySelectorAll(".role-btn");
+const roleInput = document.getElementById("roleInput");
 
-if (customSelect) {
+buttons.forEach(button=>{
 
-    const selected = customSelect.querySelector(".selected");
-    const options = customSelect.querySelector(".options");
-    const optionItems = customSelect.querySelectorAll(".option");
-    const selectedText = document.getElementById("selected-text");
-    const hiddenInput = document.getElementById("roleInput");
+    button.addEventListener("click",()=>{
 
-    selected.addEventListener("click", function(e) {
-        e.stopPropagation();
-        customSelect.classList.toggle("active");
-    });
+        buttons.forEach(btn=>btn.classList.remove("active"));
 
-    optionItems.forEach(option => {
+        button.classList.add("active");
 
-        option.addEventListener("click", function() {
-
-            selectedText.textContent = this.textContent;
-
-            hiddenInput.value = this.textContent;
-
-            customSelect.classList.remove("active");
-
-        });
+        roleInput.value = button.dataset.role;
 
     });
 
-    document.addEventListener("click", function(e) {
-
-        if (!customSelect.contains(e.target)) {
-
-            customSelect.classList.remove("active");
-
-        }
-
-    });
-
-}
+});
 </script>
 </body>
 </html>
