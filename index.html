@@ -612,22 +612,26 @@ Orbit © 2026
 
 </div>
 <script>
-const roleButtons = document.querySelectorAll(".role-btn");
+
+const buttons = document.querySelectorAll(".role-btn");
 const roleInput = document.getElementById("roleInput");
 
-roleButtons.forEach(button=>{
+buttons.forEach(button => {
 
-button.addEventListener("click",()=>{
+    button.addEventListener("click", () => {
 
-roleButtons.forEach(btn=>btn.classList.remove("active"));
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+        });
 
-button.classList.add("active");
+        button.classList.add("active");
 
-roleInput.value=button.dataset.role;
+        roleInput.value = button.dataset.role;
+
+    });
 
 });
 
-});
 </script>
 </body>
 </html>
