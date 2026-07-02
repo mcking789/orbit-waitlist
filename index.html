@@ -31,6 +31,10 @@
 }
 
 .role-btn{
+ position:relative;
+    z-index:10;
+    pointer-events:auto;
+    cursor:pointer;
 
     background:rgba(255,255,255,.05);
 
@@ -509,53 +513,30 @@ Orbit © 2026
 
 </div>
 <script>
-const form = document.getElementById("waitlistForm");
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-if (form) {
-    form.addEventListener("submit", async function(e) {
+    const buttons = document.querySelectorAll(".role-btn");
+    const roleInput = document.getElementById("roleInput");
 
-        e.preventDefault();
+    buttons.forEach(button => {
 
-        const data = new FormData(form);
+        button.addEventListener("click", function () {
 
-        try {
+            buttons.forEach(btn => btn.classList.remove("active"));
 
-            const response = await fetch(form.action, {
-                method: "POST",
-                body: data,
-                headers: {
-                    Accept: "application/json"
-                }
-            });
+            this.classList.add("active");
 
-            if (response.ok) {
-                window.location.href = "thankyou.html";
-            } else {
-                alert("Something went wrong. Please try again.");
+            if (roleInput) {
+                roleInput.value = this.dataset.role;
             }
 
-        } catch (error) {
-            alert("Network error. Please try again.");
-        }
-
-    });
-}
-const buttons = document.querySelectorAll(".role-btn");
-const roleInput = document.getElementById("roleInput");
-
-buttons.forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-        buttons.forEach(btn=>btn.classList.remove("active"));
-
-        button.classList.add("active");
-
-        roleInput.value = button.dataset.role;
+        });
 
     });
 
 });
+</script>
 </script>
 </body>
 </html>
