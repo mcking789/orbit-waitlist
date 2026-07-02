@@ -273,27 +273,24 @@ transform:translateY(0);
 to{
 transform:translateY(-180px);
 }
+
+}   /* <-- ADD THIS */
+
 .glass{
 
 background:rgba(255,255,255,.06);
-
 backdrop-filter:blur(22px);
-
 border:1px solid rgba(255,255,255,.08);
-
 border-radius:28px;
+box-shadow:0 0 40px rgba(0,140,255,.08);
 
-box-shadow:
-0 0 40px rgba(0,140,255,.08);
-
-}
 }
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Inter',sans-serif;
+font-family:'Sora',sans-serif;
 }
 
 body{
@@ -451,6 +448,9 @@ border-radius:30px;
 background:rgba(255,255,255,.04);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(25px);
+
+position:relative;
+z-index:1;
 }
 
 .feature h3{
