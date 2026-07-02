@@ -10,9 +10,10 @@
 
 <style>
   .custom-select{
-position:relative;
-width:100%;
-margin-bottom:20px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    z-index: 9999;
 }
 
 .selected{
@@ -56,27 +57,27 @@ font-size:13px;
 
 .options{
 
-position:absolute;
+    position:absolute;
 
-top:110%;
+    top:calc(100% + 10px);
 
-left:0;
+    left:0;
 
-width:100%;
+    width:100%;
 
-background:#111827;
+    background:#111827;
 
-border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
 
-border-radius:16px;
+    border-radius:18px;
 
-overflow:hidden;
+    overflow:hidden;
 
-display:none;
+    display:none;
 
-z-index:999;
+    z-index:10000;
 
-box-shadow:0 20px 60px rgba(0,0,0,.45);
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
 
 }
 
@@ -395,6 +396,7 @@ background:rgba(255,255,255,.04);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(25px);
 border-radius:32px;
+overflow: visible;
 }
 
 .input{
