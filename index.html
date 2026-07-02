@@ -9,194 +9,85 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
-  .custom-select{
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-    z-index: 9999;
+ .role-selector{
+    margin:20px 0 25px;
 }
 
-.selected{
-
-background:rgba(255,255,255,.06);
-
-border:1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(18px);
-
-padding:18px 22px;
-
-border-radius:16px;
-
-cursor:pointer;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-font-size:17px;
-
-transition:.3s;
+.role-title{
+    color:#cbd5e1;
+    font-size:.95rem;
+    margin-bottom:14px;
+    font-weight:600;
 }
 
-.selected:hover{
+.role-grid{
 
-border-color:#3b82f6;
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
 
 }
 
-.arrow{
+.role-btn{
 
-transition:.3s;
-
-font-size:13px;
-
-}
-
-.options{
-    position:absolute;
-    bottom:calc(100% + 10px);   /* Opens above instead of below */
-    left:0;
-
-    width:100%;
-
-    background:#111827;
+    background:rgba(255,255,255,.05);
 
     border:1px solid rgba(255,255,255,.08);
 
+    color:#fff;
+
+    padding:16px;
+
     border-radius:18px;
 
-    overflow:hidden;
+    cursor:pointer;
 
-    display:none;
+    font-size:15px;
 
-    z-index:99999;
+    font-weight:600;
 
-    box-shadow:0 25px 80px rgba(0,0,0,.45);
-}
+    transition:.25s;
 
-.option{
-
-padding:16px 22px;
-
-cursor:pointer;
-
-transition:.25s;
+    backdrop-filter:blur(18px);
 
 }
 
-.option:hover{
+.role-btn:hover{
 
-background:#2563eb;
+    transform:translateY(-2px);
 
-}
+    border-color:#3b82f6;
 
-.custom-select.active .options{
-
-display:block;
-
-animation:dropdown .25s ease;
+    background:rgba(37,99,235,.18);
 
 }
 
-.custom-select.active .arrow{
+.role-btn.active{
 
-transform:rotate(180deg);
+    background:linear-gradient(
+    135deg,
+    #2563eb,
+    #3b82f6
+    );
+
+    border-color:#60a5fa;
+
+    box-shadow:
+    0 0 25px rgba(37,99,235,.35);
 
 }
 
-@keyframes dropdown{
+@media(max-width:650px){
 
-from{
+.role-grid{
 
-opacity:0;
-
-transform:translateY(-10px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
+grid-template-columns:1fr;
 
 }
 
 }
-  .space-bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-overflow:hidden;
-z-index:-100;
-pointer-events:none;
-}
-
-/* BLOBS */
-
-.blob{
-position:absolute;
-border-radius:50%;
-filter:blur(140px);
-opacity: .12;
-animation:float 18s ease-in-out infinite;
-}
-
-.blob1{
-width:600px;
-height:600px;
-background:#1d4ed8;
-top:-180px;
-left:-150px;
-}
-
-.blob2{
-width:700px;
-height:700px;
-background:#3730a3;
-right:-220px;
-top:25%;
-animation-delay:-6s;
-}
-
-.blob3{
-width:650px;
-height:650px;
-background:#0891b2;
-left:35%;
-bottom:-220px;
-animation-delay:-12s;
-}
-
-/* RINGS */
-
-.ring{
-position:absolute;
-border:1px solid rgba(255,255,255,.08);
-border-radius:50%;
-animation:rotateRing 45s linear infinite;
-}
-
-.ring1{
-width:900px;
-height:900px;
-top:-250px;
-left:-250px;
-}
-
-.ring2{
-width:700px;
-height:700px;
-bottom:-220px;
-right:-180px;
-animation-direction:reverse;
-}
-
 /* STARS */
 
 .stars{
@@ -545,26 +436,35 @@ name="email"
 placeholder="Email Address"
 required>
 
-<div class="custom-select">
+<div class="role-selector">
 
-    <div class="selected">
-        <span id="selected-text">Student</span>
-        <span class="arrow">▼</span>
+    <p class="role-title">Who are you?</p>
+
+    <div class="role-grid">
+
+        <button type="button" class="role-btn active" data-role="Student">
+            🎓 Student
+        </button>
+
+        <button type="button" class="role-btn" data-role="College Student">
+            🏫 College Student
+        </button>
+
+        <button type="button" class="role-btn" data-role="Working Professional">
+            💼 Working Professional
+        </button>
+
+        <button type="button" class="role-btn" data-role="Others">
+            🌍 Others
+        </button>
+
     </div>
 
-    <div class="options">
-
-        <div class="option">Student</div>
-
-        <div class="option">College Student</div>
-
-        <div class="option">Working Professional</div>
-
-        <div class="option">Others</div>
-
-    </div>
-
-    <input type="hidden" name="role" id="roleInput" value="Student">
+    <input
+        type="hidden"
+        name="role"
+        id="roleInput"
+        value="Student">
 
 </div>
 
