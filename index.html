@@ -9,6 +9,230 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
+ /* SPACE */
+
+.space-bg{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+overflow:hidden;
+
+pointer-events:none;
+
+z-index:-100;
+
+}
+
+/* NEBULA */
+
+.nebula{
+
+position:absolute;
+
+border-radius:50%;
+
+filter:blur(160px);
+
+animation:floatNebula 15s ease-in-out infinite alternate;
+
+}
+
+.nebula1{
+
+width:700px;
+height:700px;
+
+background:#2563eb;
+
+left:-250px;
+
+top:-150px;
+
+opacity:.18;
+
+}
+
+.nebula2{
+
+width:650px;
+height:650px;
+
+background:#7c3aed;
+
+right:-250px;
+
+bottom:-200px;
+
+opacity:.12;
+
+}
+
+@keyframes floatNebula{
+
+from{
+
+transform:translateY(0);
+
+}
+
+to{
+
+transform:translateY(-80px);
+
+}
+
+}
+
+/* STARS */
+
+.stars{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background-image:
+
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(#9ec8ff 1px, transparent 1px),
+radial-gradient(#ffffff 2px, transparent 2px);
+
+background-size:
+
+180px 180px,
+250px 250px,
+400px 400px;
+
+animation:moveStars 60s linear infinite;
+
+opacity:.8;
+
+}
+
+@keyframes moveStars{
+
+from{
+
+transform:translateY(0);
+
+}
+
+to{
+
+transform:translateY(250px);
+
+}
+
+}
+
+/* SHOOTING STARS */
+
+.shooting{
+
+position:absolute;
+
+width:180px;
+
+height:2px;
+
+background:linear-gradient(90deg,white,transparent);
+
+transform:rotate(-35deg);
+
+animation:shoot 8s linear infinite;
+
+opacity:.9;
+
+}
+
+.shooting1{
+
+top:12%;
+left:80%;
+
+animation-delay:0s;
+
+}
+
+.shooting2{
+
+top:35%;
+left:20%;
+
+animation-delay:2.5s;
+
+}
+
+.shooting3{
+
+top:60%;
+left:65%;
+
+animation-delay:5s;
+
+}
+
+@keyframes shoot{
+
+0%{
+
+transform:translateX(0) translateY(0) rotate(-35deg);
+
+opacity:0;
+
+}
+
+10%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateX(-800px) translateY(350px) rotate(-35deg);
+
+opacity:0;
+
+}
+
+}
+
+/* ROCKET */
+
+.rocket-container{
+
+position:fixed;
+
+right:8%;
+
+bottom:-120px;
+
+z-index:20;
+
+pointer-events:none;
+
+}
+
+.rocket{
+
+width:120px;
+
+filter:
+
+drop-shadow(0 0 30px #3b82f6)
+drop-shadow(0 0 80px rgba(59,130,246,.6));
+
+transition:transform .1s linear;
+
+}
  .role-selector{
     margin:20px 0 25px;
 }
@@ -624,6 +848,25 @@ border-color:#3b82f6;
 </head>
 
 <body>
+ <div class="space-bg">
+
+    <div class="nebula nebula1"></div>
+    <div class="nebula nebula2"></div>
+
+    <div class="stars"></div>
+
+    <div class="shooting shooting1"></div>
+    <div class="shooting shooting2"></div>
+    <div class="shooting shooting3"></div>
+
+</div>
+
+<div class="rocket-container">
+
+    <img src="rocket.png" class="rocket">
+
+</div>
+ 
   <div class="space-bg">
 
   <div class="blob blob1"></div>
@@ -821,6 +1064,17 @@ window.addEventListener("scroll",()=>{
 const scroll=window.scrollY;
 
 rocket.style.bottom=(scroll*0.55)+"px";
+
+});
+
+const rocket=document.querySelector(".rocket");
+
+window.addEventListener("scroll",()=>{
+
+const scroll=window.scrollY;
+
+rocket.style.transform=
+`translateY(${-scroll*0.6}px) rotate(-12deg)`;
 
 });
 </script>
