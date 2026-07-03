@@ -9,6 +9,121 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
+ /* ===========================
+   ORBIT ROCKET
+=========================== */
+
+.rocket-wrapper{
+
+position:fixed;
+
+right:6%;
+
+bottom:-180px;
+
+z-index:15;
+
+pointer-events:none;
+
+}
+
+.rocket{
+
+width:150px;
+
+filter:
+
+drop-shadow(0 0 20px rgba(59,130,246,.9))
+drop-shadow(0 0 50px rgba(59,130,246,.7))
+drop-shadow(0 0 100px rgba(59,130,246,.5));
+
+animation:
+
+floatRocket 4s ease-in-out infinite;
+
+}
+
+/* floating */
+
+@keyframes floatRocket{
+
+0%{
+
+transform:translateY(0px) rotate(-8deg);
+
+}
+
+50%{
+
+transform:translateY(-12px) rotate(-6deg);
+
+}
+
+100%{
+
+transform:translateY(0px) rotate(-8deg);
+
+}
+
+}
+
+/* rocket flame */
+
+.rocket::after{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+
+bottom:-20px;
+
+transform:translateX(-50%);
+
+width:22px;
+
+height:70px;
+
+background:linear-gradient(
+
+180deg,
+
+#60a5fa,
+
+#3b82f6,
+
+#2563eb,
+
+transparent
+
+);
+
+filter:blur(12px);
+
+animation:flame .18s infinite alternate;
+
+}
+
+@keyframes flame{
+
+from{
+
+height:60px;
+
+opacity:.8;
+
+}
+
+to{
+
+height:78px;
+
+opacity:1;
+
+}
+
+}
  /* SPACE */
 
 .space-bg{
@@ -981,6 +1096,12 @@ for students and young professionals.
 <div class="line"></div>
 
 </div>
+ 
+ <div class="rocket-wrapper">
+
+    <img src="rocket.png" class="rocket" alt="Orbit Rocket">
+
+</div>
 
 <div class="journey-content">
 
@@ -1075,6 +1196,18 @@ const scroll=window.scrollY;
 
 rocket.style.transform=
 `translateY(${-scroll*0.6}px) rotate(-12deg)`;
+
+});
+
+const rocket=document.querySelector(".rocket-wrapper");
+
+window.addEventListener("scroll",()=>{
+
+const scroll=window.scrollY;
+
+rocket.style.transform=
+
+`translateY(${-scroll*0.65}px)`;
 
 });
 </script>
