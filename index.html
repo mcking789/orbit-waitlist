@@ -503,6 +503,122 @@ grid-template-columns:1fr;
 }
 
 }
+ .journey{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:90px;
+
+padding:150px 0;
+
+}
+
+.rocket-track{
+
+position:relative;
+
+width:140px;
+
+height:700px;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.line{
+
+position:absolute;
+
+width:4px;
+
+height:100%;
+
+background:linear-gradient(
+to top,
+transparent,
+#2563eb,
+transparent
+);
+
+border-radius:999px;
+
+}
+
+.rocket{
+
+position:absolute;
+
+bottom:0;
+
+font-size:70px;
+
+transition:.15s linear;
+
+filter:drop-shadow(0 0 25px #3b82f6);
+
+}
+
+.journey-content{
+
+max-width:550px;
+
+}
+
+.journey h2{
+
+font-size:3rem;
+
+margin-bottom:25px;
+
+}
+
+.journey p{
+
+color:#94a3b8;
+
+line-height:1.8;
+
+margin-bottom:50px;
+
+}
+
+.steps{
+
+display:grid;
+
+gap:22px;
+
+}
+
+.step{
+
+padding:25px;
+
+background:rgba(255,255,255,.04);
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:22px;
+
+backdrop-filter:blur(20px);
+
+transition:.3s;
+
+}
+
+.step:hover{
+
+transform:translateX(10px);
+
+border-color:#3b82f6;
+
+}
 
 </style>
 </head>
@@ -611,31 +727,54 @@ for students and young professionals.
 
 </section>..
 
-<section class="features">
+<section class="journey">
 
-<div class="feature">
-<h3>Planning</h3>
-<p>
-Build schedules, timetables and daily routines that keep you focused.
-</p>
+<div class="rocket-track">
+
+<div class="rocket">
+🚀
 </div>
 
-<div class="feature">
-<h3>Opportunities</h3>
-<p>
-Discover scholarships, internships, competitions and career paths.
-</p>
+<div class="line"></div>
+
 </div>
 
-<div class="feature">
-<h3>Growth</h3>
+<div class="journey-content">
+
+<h2>Your Journey Starts Here.</h2>
+
 <p>
-Track goals, journal progress and build long-term consistency.
+Orbit combines planning, productivity,
+AI assistance, journaling and opportunities
+into one beautiful workspace.
 </p>
+
+<div class="steps">
+
+<div class="step">
+🎯
+<h3>Plan</h3>
+<p>Create goals and organize your future.</p>
+</div>
+
+<div class="step">
+🤖
+<h3>Grow</h3>
+<p>Use AI to study, work and improve daily.</p>
+</div>
+
+<div class="step">
+🌎
+<h3>Launch</h3>
+<p>Discover internships, scholarships and careers.</p>
+</div>
+
+</div>
+
 </div>
 
 </section>
-
+ 
 <div class="footer">
 Orbit © 2026
 </div>
@@ -674,6 +813,15 @@ form.addEventListener("submit", async (e) => {
   });
 
   window.location.href = "thankyou.html";
+});
+ const rocket=document.querySelector(".rocket");
+
+window.addEventListener("scroll",()=>{
+
+const scroll=window.scrollY;
+
+rocket.style.bottom=(scroll*0.55)+"px";
+
 });
 </script>
 </body>
