@@ -1178,38 +1178,7 @@ form.addEventListener("submit", async (e) => {
 
   window.location.href = "thankyou.html";
 });
- const rocket=document.querySelector(".rocket");
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.bottom=(scroll*0.55)+"px";
-
-});
-
-const rocket=document.querySelector(".rocket");
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.transform=
-`translateY(${-scroll*0.6}px) rotate(-12deg)`;
-
-});
-
-const rocket=document.querySelector(".rocket-wrapper");
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.transform=
-
-`translateY(${-scroll*0.65}px)`;
-
-});
+ 
 const form = document.getElementById("waitlistForm");
 
 if (form) {
@@ -1234,6 +1203,16 @@ if (form) {
         }
     });
 }
+ const rocket = document.querySelector(".rocket-wrapper");
+
+window.addEventListener("scroll", () => {
+
+    const scroll = window.scrollY;
+
+    rocket.style.transform =
+        `translateY(${-scroll * 0.8}px)`;
+
+});
 </script>
 </body>
 </html>
