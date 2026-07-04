@@ -1161,23 +1161,6 @@ roleInput.value=button.dataset.role;
 });
 
 });
- const form = document.querySelector("form");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const data = new FormData(form);
-
-  await fetch(form.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      Accept: "application/json"
-    }
-  });
-
-  window.location.href = "thankyou.html";
-});
  
 const form = document.getElementById("waitlistForm");
 
