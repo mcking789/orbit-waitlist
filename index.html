@@ -11,7 +11,61 @@
 <style>
  /* ===========================
    ORBIT ROCKET
-=========================== *
+=========================== */
+
+.rocket-wrapper{
+
+position:fixed;
+
+right:6%;
+
+bottom:-180px;
+
+z-index:15;
+
+pointer-events:none;
+
+}
+
+.rocket{
+
+width:150px;
+
+filter:
+
+drop-shadow(0 0 20px rgba(59,130,246,.9))
+drop-shadow(0 0 50px rgba(59,130,246,.7))
+drop-shadow(0 0 100px rgba(59,130,246,.5));
+
+animation:
+
+floatRocket 4s ease-in-out infinite;
+
+}
+
+/* floating */
+
+@keyframes floatRocket{
+
+0%{
+
+transform:translateY(0px) rotate(-8deg);
+
+}
+
+50%{
+
+transform:translateY(-12px) rotate(-6deg);
+
+}
+
+100%{
+
+transform:translateY(0px) rotate(-8deg);
+
+}
+
+}
 
 /* rocket flame */
 
@@ -145,6 +199,49 @@ transform:translateY(0);
 to{
 
 transform:translateY(-80px);
+
+}
+
+}
+
+/* STARS */
+
+.stars{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background-image:
+
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(#9ec8ff 1px, transparent 1px),
+radial-gradient(#ffffff 2px, transparent 2px);
+
+background-size:
+
+180px 180px,
+250px 250px,
+400px 400px;
+
+animation:moveStars 60s linear infinite;
+
+opacity:.8;
+
+}
+
+@keyframes moveStars{
+
+from{
+
+transform:translateY(0);
+
+}
+
+to{
+
+transform:translateY(250px);
 
 }
 
@@ -381,6 +478,20 @@ transform:translate(0,0) scale(1);
 
 }
 
+/* ROTATE */
+
+@keyframes rotateRing{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
 /* STARS */
 
 @keyframes starsMove{
@@ -393,7 +504,24 @@ to{
 transform:translateY(-180px);
 }
 
-}   
+}   /* <-- ADD THIS */
+
+.glass{
+
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(22px);
+border:1px solid rgba(255,255,255,.08);
+border-radius:28px;
+box-shadow:0 0 40px rgba(0,140,255,.08);
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
 
 body{
 background:
@@ -430,8 +558,10 @@ border-radius:9999px;
 }
 
 .container{
-width:min(760px,92%);
+width:min(1100px,90%);
 margin:auto;
+position:relative;
+z-index:2;
 }
 
 .hero{
@@ -500,22 +630,14 @@ margin:18px auto 35px;
 
 .input{
 width:100%;
-height:60px;
-padding:0 22px;
-margin-bottom:18px;
-border-radius:18px;
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.08);
-color:#fff;
-font-size:17px;
-transition:.25s;
-
-}
-
-.input:focus{
-border-color:#3b82f6;
-box-shadow:0 0 18px rgba(59,130,246,.25);
-
+padding:18px;
+margin-bottom:15px;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:20px;
+outline:none;
+color:white;
+font-size:1rem;
 }
 
 .input::placeholder{
@@ -524,24 +646,25 @@ color:#64748b;
 
 .button{
 width:100%;
-height:64px;
-margin-top:18px
+padding:18px;
 border:none;
 border-radius:20px;
-font-size:21px;
 font-weight:700;
-background:linear-gradient(135deg,#2563eb,#4f8cff);
-color:#fff;
+font-size:1rem;
 cursor:pointer;
-transition:.3s;
-box-shadow:0 15px 35px rgba(37,99,235,.35);
 
+background:linear-gradient(
+90deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+transition:.3s;
 }
 
 .button:hover{
-transform:translateY(-4px);
-box-shadow:0 20px 45px rgba(37,99,235,.45);
-
+transform:translateY(-3px);
 }
 
 .features{
@@ -607,12 +730,14 @@ margin-top:50px;
 @media(max-width:768px){
 
 .logo{
-    font-family:'Inter',sans-serif;
-    font-size:20px;
-    font-weight:600;
-    color:white;
+    font-family:'Sora',sans-serif;
+    font-size: clamp(4rem,10vw,7rem);
+    font-weight:800;
+    letter-spacing:-3px;
+    color:#ffffff;
 
-    text-shadow:0 0 40px rgba(37,99,235,.20);
+    text-shadow:
+        0 0 40px rgba(37,99,235,.20);
 }
 
 .hero h1{
@@ -626,64 +751,85 @@ margin-bottom:18px;
 }
 
 }
-.form-section{
-width:100%;
-max-width:700px;
-margin:0 auto 28px;
-padding:30px;
-background:rgba(18,25,45,.75);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.08);
-border-radius:28px;
-box-shadow:
-0 10px 35px rgba(0,0,0,.25);
+ .form-section{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    border-radius:28px;
+
+    padding:30px;
+
+    margin-bottom:22px;
 
 }
 
 .form-section h3{
-font-family:'Inter',sans-serif;
-font-size:28px;
-font-weight:700;
-margin-bottom:26px;
-color:#fff;
-letter-spacing:-0.5px;
+
+    color:#fff;
+
+    font-size:1.1rem;
+
+    margin-bottom:22px;
+
+    font-weight:700;
+
 }
 
 .role-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
-margin-top:10px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
 }
 
 .role-btn{
-height:68px;
-border-radius:18px;
-border:1px solid rgba(255,255,255,.08);
-background:rgba(255,255,255,.05);
-color:#fff;
-font-size:20px;
-font-weight:600;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-cursor:pointer;
-transition:.25s;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.25s;
 
 }
 
 .role-btn:hover{
-transform:translateY(-3px);
-border-color:#3b82f6;
-background:rgba(59,130,246,.10);
+
+    transform:translateY(-2px);
+
+    border-color:#3b82f6;
 
 }
 
 .role-btn.active{
-background:linear-gradient(135deg,#2563eb,#4f8cff);
-border-color:#4f8cff;
-box-shadow:0 0 25px rgba(59,130,246,.35);
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    box-shadow:0 10px 30px rgba(37,99,235,.35);
 
 }
 
@@ -707,6 +853,53 @@ justify-content:center;
 gap:90px;
 
 padding:150px 0;
+
+}
+
+.rocket-track{
+
+position:relative;
+
+width:140px;
+
+height:700px;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.line{
+
+position:absolute;
+
+width:4px;
+
+height:100%;
+
+background:linear-gradient(
+to top,
+transparent,
+#2563eb,
+transparent
+);
+
+border-radius:999px;
+
+}
+
+.rocket{
+
+position:absolute;
+
+bottom:0;
+
+font-size:70px;
+
+transition:.15s linear;
+
+filter:drop-shadow(0 0 25px #3b82f6);
 
 }
 
@@ -774,6 +967,8 @@ border-color:#3b82f6;
 
     <div class="nebula nebula1"></div>
     <div class="nebula nebula2"></div>
+
+    <div class="stars"></div>
 
     <div class="shooting shooting1"></div>
     <div class="shooting shooting2"></div>
@@ -888,9 +1083,25 @@ for students and young professionals.
 
 </div>
 
-</section>
+</section>..
 
 <section class="journey">
+
+<div class="rocket-track">
+
+<div class="rocket">
+🚀
+</div>
+
+<div class="line"></div>
+
+</div>
+ 
+ <div class="rocket-wrapper">
+
+    <img src="rocket.png" class="rocket" alt="Orbit Rocket">
+
+</div>
 
 <div class="journey-content">
 
@@ -934,9 +1145,8 @@ Orbit © 2026
 
 </div>
 <script>
-
-const roleButtons=document.querySelectorAll(".role-btn");
-const roleInput=document.getElementById("roleInput");
+const roleButtons = document.querySelectorAll(".role-btn");
+const roleInput = document.getElementById("roleInput");
 
 roleButtons.forEach(button=>{
 
@@ -951,32 +1161,41 @@ roleInput.value=button.dataset.role;
 });
 
 });
+ const form = document.querySelector("form");
 
-const form=document.getElementById("waitlistForm");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-form.addEventListener("submit",async(e)=>{
+  const data = new FormData(form);
 
-e.preventDefault();
+  await fetch(form.action, {
+    method: "POST",
+    body: data,
+    headers: {
+      Accept: "application/json"
+    }
+  });
 
-const data=new FormData(form);
+  window.location.href = "thankyou.html";
+});
+ const rocket=document.querySelector(".rocket");
 
-const response=await fetch(form.action,{
-method:"POST",
-body:data,
-headers:{
-Accept:"application/json"
-}
+window.addEventListener("scroll",()=>{
+
+const scroll=window.scrollY;
+
+rocket.style.bottom=(scroll*0.55)+"px";
+
 });
 
-if(response.ok){
+const rocket=document.querySelector(".rocket");
 
-window.location.href="thankyou.html";
+window.addEventListener("scroll",()=>{
 
-}else{
+const scroll=window.scrollY;
 
-alert("Something went wrong.");
-
-}
+rocket.style.transform=
+`translateY(${-scroll*0.6}px) rotate(-12deg)`;
 
 });
 
@@ -984,12 +1203,37 @@ const rocket=document.querySelector(".rocket-wrapper");
 
 window.addEventListener("scroll",()=>{
 
+const scroll=window.scrollY;
+
 rocket.style.transform=
 
-`translateY(${-window.scrollY*.6}px)`;
+`translateY(${-scroll*0.65}px)`;
 
 });
+const form = document.getElementById("waitlistForm");
 
+if (form) {
+    form.addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const data = new FormData(form);
+
+        const response = await fetch(form.action, {
+            method: "POST",
+            body: data,
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (response.ok) {
+            window.location.href = "thankyou.html";
+        } else {
+            alert("Something went wrong.");
+        }
+    });
+}
 </script>
 </body>
 </html>
