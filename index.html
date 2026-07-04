@@ -558,10 +558,9 @@ border-radius:9999px;
 }
 
 .container{
-width:min(1100px,90%);
-margin:auto;
-position:relative;
-z-index:2;
+    width:min(1200px,92%);
+    margin:0 auto;
+    padding:0 20px;
 }
 
 .hero{
@@ -608,24 +607,19 @@ color:#cbd5e1;
 }
 
 .hero h1{
-font-size:4rem;
-line-height:1.05;
-max-width:900px;
-margin-bottom:25px;
+    font-size:clamp(2.5rem,8vw,4.8rem);
+    line-height:1.05;
+    max-width:800px;
+    margin:0 auto 20px;
+    word-wrap:break-word;
 }
 
 .hero p{
-
-max-width:620px;
-
-font-size:1rem;
-
-line-height:1.7;
-
-color:#94a3b8;
-
-margin:18px auto 35px;
-
+    max-width:650px;
+    margin:18px auto 35px;
+    line-height:1.8;
+    font-size:clamp(.95rem,2vw,1.1rem);
+    color:#94a3b8;
 }
 
 .input{
@@ -751,20 +745,11 @@ margin-bottom:18px;
 }
 
 }
- .form-section{
-
-    background:rgba(255,255,255,.04);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(25px);
-
-    border-radius:28px;
-
-    padding:30px;
-
-    margin-bottom:22px;
-
+.form-section{
+    width:100%;
+    max-width:700px;
+    margin:0 auto 25px;
+    padding:28px;
 }
 
 .form-section h3{
@@ -780,13 +765,9 @@ margin-bottom:18px;
 }
 
 .role-grid{
-
     display:grid;
-
     grid-template-columns:repeat(2,1fr);
-
-    gap:14px;
-
+    gap:15px;
 }
 
 .role-btn{
@@ -958,7 +939,73 @@ transform:translateX(10px);
 border-color:#3b82f6;
 
 }
+ 
+ form{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+}
+/* ==========================
+   MOBILE
+========================== */
 
+@media (max-width:768px){
+
+    .logo{
+        font-size:3.5rem;
+        letter-spacing:-2px;
+    }
+
+    .hero{
+        padding:60px 20px;
+    }
+
+    .hero h1{
+        font-size:2.6rem;
+    }
+
+    .hero p{
+        font-size:1rem;
+    }
+
+    .form-section{
+        padding:22px;
+    }
+
+    .role-grid{
+        grid-template-columns:1fr;
+    }
+
+    .button{
+        width:100%;
+    }
+
+    .journey{
+        flex-direction:column;
+        gap:40px;
+        text-align:center;
+    }
+
+    .journey-content{
+        max-width:100%;
+    }
+
+    .rocket-container,
+    .rocket-wrapper{
+        display:none;
+    }
+
+}
+ 
+ *{
+    box-sizing:border-box;
+    word-wrap:break-word;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
 </style>
 </head>
 
