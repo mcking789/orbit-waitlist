@@ -43,30 +43,6 @@ floatRocket 4s ease-in-out infinite;
 
 }
 
-/* floating */
-
-@keyframes floatRocket{
-
-0%{
-
-transform:translateY(0px) rotate(-8deg);
-
-}
-
-50%{
-
-transform:translateY(-12px) rotate(-6deg);
-
-}
-
-100%{
-
-transform:translateY(0px) rotate(-8deg);
-
-}
-
-}
-
 /* rocket flame */
 
 .rocket::after{
@@ -199,49 +175,6 @@ transform:translateY(0);
 to{
 
 transform:translateY(-80px);
-
-}
-
-}
-
-/* STARS */
-
-.stars{
-
-position:absolute;
-
-width:100%;
-height:100%;
-
-background-image:
-
-radial-gradient(white 1px, transparent 1px),
-radial-gradient(#9ec8ff 1px, transparent 1px),
-radial-gradient(#ffffff 2px, transparent 2px);
-
-background-size:
-
-180px 180px,
-250px 250px,
-400px 400px;
-
-animation:moveStars 60s linear infinite;
-
-opacity:.8;
-
-}
-
-@keyframes moveStars{
-
-from{
-
-transform:translateY(0);
-
-}
-
-to{
-
-transform:translateY(250px);
 
 }
 
@@ -478,20 +411,6 @@ transform:translate(0,0) scale(1);
 
 }
 
-/* ROTATE */
-
-@keyframes rotateRing{
-
-from{
-transform:rotate(0deg);
-}
-
-to{
-transform:rotate(360deg);
-}
-
-}
-
 /* STARS */
 
 @keyframes starsMove{
@@ -504,24 +423,7 @@ to{
 transform:translateY(-180px);
 }
 
-}   /* <-- ADD THIS */
-
-.glass{
-
-background:rgba(255,255,255,.06);
-backdrop-filter:blur(22px);
-border:1px solid rgba(255,255,255,.08);
-border-radius:28px;
-box-shadow:0 0 40px rgba(0,140,255,.08);
-
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
+}   
 
 body{
 background:
@@ -856,53 +758,6 @@ padding:150px 0;
 
 }
 
-.rocket-track{
-
-position:relative;
-
-width:140px;
-
-height:700px;
-
-display:flex;
-
-justify-content:center;
-
-}
-
-.line{
-
-position:absolute;
-
-width:4px;
-
-height:100%;
-
-background:linear-gradient(
-to top,
-transparent,
-#2563eb,
-transparent
-);
-
-border-radius:999px;
-
-}
-
-.rocket{
-
-position:absolute;
-
-bottom:0;
-
-font-size:70px;
-
-transition:.15s linear;
-
-filter:drop-shadow(0 0 25px #3b82f6);
-
-}
-
 .journey-content{
 
 max-width:550px;
@@ -967,8 +822,6 @@ border-color:#3b82f6;
 
     <div class="nebula nebula1"></div>
     <div class="nebula nebula2"></div>
-
-    <div class="stars"></div>
 
     <div class="shooting shooting1"></div>
     <div class="shooting shooting2"></div>
@@ -1083,19 +936,9 @@ for students and young professionals.
 
 </div>
 
-</section>..
+</section>
 
 <section class="journey">
-
-<div class="rocket-track">
-
-<div class="rocket">
-🚀
-</div>
-
-<div class="line"></div>
-
-</div>
  
  <div class="rocket-wrapper">
 
@@ -1145,8 +988,9 @@ Orbit © 2026
 
 </div>
 <script>
-const roleButtons = document.querySelectorAll(".role-btn");
-const roleInput = document.getElementById("roleInput");
+
+const roleButtons=document.querySelectorAll(".role-btn");
+const roleInput=document.getElementById("roleInput");
 
 roleButtons.forEach(button=>{
 
@@ -1161,41 +1005,32 @@ roleInput.value=button.dataset.role;
 });
 
 });
- const form = document.querySelector("form");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+const form=document.getElementById("waitlistForm");
 
-  const data = new FormData(form);
+form.addEventListener("submit",async(e)=>{
 
-  await fetch(form.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      Accept: "application/json"
-    }
-  });
+e.preventDefault();
 
-  window.location.href = "thankyou.html";
-});
- const rocket=document.querySelector(".rocket");
+const data=new FormData(form);
 
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.bottom=(scroll*0.55)+"px";
-
+const response=await fetch(form.action,{
+method:"POST",
+body:data,
+headers:{
+Accept:"application/json"
+}
 });
 
-const rocket=document.querySelector(".rocket");
+if(response.ok){
 
-window.addEventListener("scroll",()=>{
+window.location.href="thankyou.html";
 
-const scroll=window.scrollY;
+}else{
 
-rocket.style.transform=
-`translateY(${-scroll*0.6}px) rotate(-12deg)`;
+alert("Something went wrong.");
+
+}
 
 });
 
@@ -1203,37 +1038,12 @@ const rocket=document.querySelector(".rocket-wrapper");
 
 window.addEventListener("scroll",()=>{
 
-const scroll=window.scrollY;
-
 rocket.style.transform=
 
-`translateY(${-scroll*0.65}px)`;
+`translateY(${-window.scrollY*.6}px)`;
 
 });
-const form = document.getElementById("waitlistForm");
 
-if (form) {
-    form.addEventListener("submit", async function(e) {
-
-        e.preventDefault();
-
-        const data = new FormData(form);
-
-        const response = await fetch(form.action, {
-            method: "POST",
-            body: data,
-            headers: {
-                "Accept": "application/json"
-            }
-        });
-
-        if (response.ok) {
-            window.location.href = "thankyou.html";
-        } else {
-            alert("Something went wrong.");
-        }
-    });
-}
 </script>
 </body>
 </html>
