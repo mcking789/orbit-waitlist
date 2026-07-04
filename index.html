@@ -1145,71 +1145,19 @@ Orbit © 2026
 
 </div>
 <script>
+// Role selector
 const roleButtons = document.querySelectorAll(".role-btn");
 const roleInput = document.getElementById("roleInput");
 
-roleButtons.forEach(button=>{
-
-button.addEventListener("click",()=>{
-
-roleButtons.forEach(btn=>btn.classList.remove("active"));
-
-button.classList.add("active");
-
-roleInput.value=button.dataset.role;
-
+roleButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        roleButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        roleInput.value = button.dataset.role;
+    });
 });
 
-});
- const form = document.querySelector("form");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const data = new FormData(form);
-
-  await fetch(form.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      Accept: "application/json"
-    }
-  });
-
-  window.location.href = "thankyou.html";
-});
- const rocket=document.querySelector(".rocket");
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.bottom=(scroll*0.55)+"px";
-
-});
-
-const rocket=document.querySelector(".rocket");
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.transform=
-`translateY(${-scroll*0.6}px) rotate(-12deg)`;
-
-});
-
-const rocket=document.querySelector(".rocket-wrapper");
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-rocket.style.transform=
-
-`translateY(${-scroll*0.65}px)`;
-
-});
+// Form submission
 const form = document.getElementById("waitlistForm");
 
 if (form) {
@@ -1219,20 +1167,41 @@ if (form) {
 
         const data = new FormData(form);
 
-        const response = await fetch(form.action, {
-            method: "POST",
-            body: data,
-            headers: {
-                "Accept": "application/json"
-            }
-        });
+        try {
 
-        if (response.ok) {
-            window.location.href = "thankyou.html";
-        } else {
-            alert("Something went wrong.");
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: data,
+                headers: {
+                    Accept: "application/json"
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = "thankyou.html";
+            } else {
+                alert("Something went wrong.");
+            }
+
+        } catch (err) {
+            alert("Network error.");
         }
+
     });
+}
+
+// Rocket animation
+const rocket = document.querySelector(".rocket-wrapper");
+
+if (rocket) {
+
+    window.addEventListener("scroll", () => {
+
+        rocket.style.transform =
+            `translateY(${-window.scrollY * 0.65}px)`;
+
+    });
+
 }
 </script>
 </body>
