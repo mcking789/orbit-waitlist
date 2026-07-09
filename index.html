@@ -9,6 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
+ /* ===========================
+   SCROLL REVEAL
+=========================== */
+
+.hidden{
+    opacity:0;
+    transform:translateY(60px);
+    transition:all .8s ease;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
+ 
  /* SPACE */
 
 .space-bg{
@@ -668,7 +683,7 @@ margin-bottom:50px;
 
 <div class="container">
 
-<section class="hero">
+<section class="hero hidden">
 
 <div class="badge">
 Launching Soon
@@ -753,9 +768,9 @@ for students and young professionals.
 
 </section>
 
-<section class="journey">
+<section class="journey hidden">
 
-<div class="journey-content">
+<div class="journey hidden">
 
 <h2>Your Journey Starts Here.</h2>
 
@@ -797,7 +812,7 @@ possibilities and take the next step toward your future.</p>
 
 </section>
  
-<div class="footer">
+<footer class="hidden">
 StarSct © 2026
 </div>
 
@@ -844,6 +859,26 @@ if (form) {
         }
     });
 }
+const hiddenElements = document.querySelectorAll(".hidden");
+
+const observer = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+},{
+    threshold:0.15
+});
+
+hiddenElements.forEach(el=>observer.observe(el));
+ 
 </script>
 </body>
 </html>
