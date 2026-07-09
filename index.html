@@ -900,6 +900,27 @@ font-size:2.2rem;
 }
 
 }
+
+ .active-star{
+
+    transform:scale(1.3);
+
+    box-shadow:
+    0 0 20px #60a5fa,
+    0 0 40px #3b82f6,
+    0 0 80px #2563eb;
+
+    background:#2563eb;
+
+}
+
+.info-card{
+
+    transition:
+    opacity .35s ease,
+    transform .35s ease;
+
+}
  
 </style>
 </head>
@@ -1018,16 +1039,15 @@ for students and young professionals.
     </p>
 
     <div class="stars-map">
+<button class="star" id="aboutStar" data-card="about">★</button>
 
-        <button class="star" data-card="about">★</button>
+<button class="star" id="plannerStar" data-card="planner">✦</button>
 
-        <button class="star" data-card="planner">✦</button>
+<button class="star" id="aiStar" data-card="ai">✦</button>
 
-        <button class="star" data-card="ai">✦</button>
+<button class="star" id="growthStar" data-card="growth">✦</button>
 
-        <button class="star" data-card="growth">✦</button>
-
-        <button class="star" data-card="career">✦</button>
+<button class="star" id="careerStar" data-card="career">✦</button>
 
     </div>
 
@@ -1111,6 +1131,84 @@ const observer = new IntersectionObserver((entries)=>{
 });
 
 hiddenElements.forEach(el=>observer.observe(el));
+
+ const infoCard = document.getElementById("infoCard");
+const title = document.getElementById("cardTitle");
+const text = document.getElementById("cardText");
+
+const content = {
+
+    about:{
+
+        title:"What is Starsct?",
+
+        text:"Starsct is your intelligent workspace for students and young professionals. Plan your future, organize your goals, discover opportunities, and grow with AI."
+
+    },
+
+    planner:{
+
+        title:"Planner",
+
+        text:"Stay organized with daily planning, study schedules, work routines, calendars and smart reminders that keep you on track."
+
+    },
+
+    ai:{
+
+        title:"AI Assistant",
+
+        text:"Ask questions, build study plans, prepare for interviews, learn new skills and receive personalized guidance whenever you need it."
+
+    },
+
+    growth:{
+
+        title:"Growth",
+
+        text:"Track your goals, habits, streaks and personal progress while building consistency every single day."
+
+    },
+
+    career:{
+
+        title:"Opportunities",
+
+        text:"Discover scholarships, internships, hackathons, competitions and career opportunities tailored to your interests."
+
+    }
+
+};
+
+document.querySelectorAll(".star").forEach(star=>{
+
+    star.addEventListener("click",()=>{
+
+        document.querySelectorAll(".star").forEach(s=>{
+
+            s.classList.remove("active-star");
+
+        });
+
+        star.classList.add("active-star");
+
+        infoCard.style.opacity="0";
+        infoCard.style.transform="translateY(20px)";
+
+        setTimeout(()=>{
+
+            title.textContent=content[star.dataset.card].title;
+
+            text.textContent=content[star.dataset.card].text;
+
+            infoCard.style.opacity="1";
+            infoCard.style.transform="translateY(0)";
+
+        },200);
+
+    });
+
+});
  
 </script>
 </body>
