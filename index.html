@@ -731,52 +731,6 @@ margin-bottom:50px;
 
 }
 
-/* CENTER STAR */
-
-.star[data-card="about"]{
-
-    left:50%;
-    top:45%;
-
-    transform:translate(-50%,-50%);
-
-    width:100px;
-    height:100px;
-
-    font-size:2.8rem;
-
-}
-
-/* OTHER STARS */
-
-.star[data-card="planner"]{
-
-    left:20%;
-    top:18%;
-
-}
-
-.star[data-card="ai"]{
-
-    right:20%;
-    top:18%;
-
-}
-
-.star[data-card="growth"]{
-
-    left:25%;
-    bottom:12%;
-
-}
-
-.star[data-card="career"]{
-
-    right:25%;
-    bottom:12%;
-
-}
-
 /* FLOATING */
 
 .star{
@@ -891,9 +845,10 @@ font-size:2.2rem;
     margin-top:60px;
 }
 
-/* Center Position */
+/* Star Positions */
+/* Center is fixed; the other 5 stars are positioned randomly via JS (see script at bottom of page) */
 
-.star-wrapper.center{
+.star-wrapper{
     position:absolute;
     left:50%;
     top:50%;
@@ -1332,6 +1287,67 @@ const observer = new IntersectionObserver((entries)=>{
 });
 
 hiddenElements.forEach(el=>observer.observe(el));
+// ==========================
+// STARSCT RANDOM POSITIONS
+// ==========================
+
+function randomizeStarPositions(){
+
+    const map = document.querySelector(".stars-map");
+    if(!map) return;
+
+    const orbitStars = Array.from(
+        document.querySelectorAll(".star-wrapper:not(.center)")
+    );
+
+    const mapWidth = map.clientWidth;
+    const mapHeight = map.clientHeight;
+
+    const count = orbitStars.length;
+    const slice = 360 / count;
+
+    // Shuffle which slot each star lands in, so the arrangement changes each load
+    const slots = orbitStars.map((_, i) => i);
+    for(let i = slots.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [slots[i], slots[j]] = [slots[j], slots[i]];
+    }
+
+    // Rotate the whole layout randomly too
+    const baseRotation = Math.random() * 360;
+
+    orbitStars.forEach((wrapper, i) => {
+
+        const star = wrapper.querySelector(".star");
+        const starSize = star ? star.offsetWidth : 90;
+
+        const angle = baseRotation + slots[i] * slice + (Math.random() * 0.6 + 0.2) * slice;
+        const angleRad = angle * Math.PI / 180;
+
+        const maxRadiusX = mapWidth / 2 - starSize / 2 - 10;
+        const maxRadiusY = mapHeight / 2 - starSize / 2 - 10;
+
+        const radiusFactor = 0.55 + Math.random() * 0.4;
+
+        const radiusX = maxRadiusX * radiusFactor;
+        const radiusY = maxRadiusY * radiusFactor;
+
+        const x = mapWidth / 2 + radiusX * Math.cos(angleRad);
+        const y = mapHeight / 2 + radiusY * Math.sin(angleRad);
+
+        wrapper.style.left = x + "px";
+        wrapper.style.top = y + "px";
+    });
+}
+
+randomizeStarPositions();
+
+let resizeTimer;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(randomizeStarPositions, 250);
+});
+
 // ==========================
 // STARSCT POPUPS
 // ==========================
