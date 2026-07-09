@@ -777,48 +777,6 @@ margin-bottom:50px;
 
 }
 
-/* INFO CARD */
-
-.info-card{
-
-    margin-top:50px;
-
-    max-width:700px;
-
-    margin-inline:auto;
-
-    padding:35px;
-
-    border-radius:28px;
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(25px);
-
-    transition:.4s ease;
-
-}
-
-.info-card h3{
-
-    font-size:2rem;
-
-    margin-bottom:18px;
-
-}
-
-.info-card p{
-
-    margin:0;
-
-    color:#94a3b8;
-
-    line-height:1.8;
-
-}
-
 /* FLOATING */
 
 .star{
@@ -919,63 +877,6 @@ font-size:2.2rem;
     transition:
     opacity .35s ease,
     transform .35s ease;
-
-}
-
- /* ===============================
-   CONSTELLATION LINES
-================================*/
-
-.constellation-lines{
-
-position:absolute;
-
-inset:0;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-}
-
-.constellation-lines line{
-
-stroke:rgba(255,255,255,.12);
-
-stroke-width:2;
-
-stroke-dasharray:10;
-
-animation:dashMove 8s linear infinite;
-
-transition:.5s;
-
-}
-
-@keyframes dashMove{
-
-from{
-
-stroke-dashoffset:0;
-
-}
-
-to{
-
-stroke-dashoffset:-40;
-
-}
-
-}
-
-.line-active{
-
-stroke:#60a5fa !important;
-
-stroke-width:3;
-
-filter:drop-shadow(0 0 8px #60a5fa);
 
 }
  
@@ -1096,15 +997,6 @@ for students and young professionals.
     </p>
 
     <div class="stars-map">
-
-<svg class="constellation-lines" viewBox="0 0 1000 600">
-
-    <line id="l1" x1="500" y1="290" x2="230" y2="120"/>
-    <line id="l2" x1="500" y1="290" x2="770" y2="120"/>
-    <line id="l3" x1="500" y1="290" x2="270" y2="470"/>
-    <line id="l4" x1="500" y1="290" x2="730" y2="470"/>
-
-</svg>
      
 <button class="star" id="aboutStar" data-card="about">★</button>
 
@@ -1115,18 +1007,6 @@ for students and young professionals.
 <button class="star" id="growthStar" data-card="growth">✦</button>
 
 <button class="star" id="careerStar" data-card="career">✦</button>
-
-    </div>
-
-    <div class="info-card" id="infoCard">
-
-        <h3 id="cardTitle">
-            Welcome
-        </h3>
-
-        <p id="cardText">
-            Click one of the stars above.
-        </p>
 
     </div>
  
@@ -1198,115 +1078,6 @@ const observer = new IntersectionObserver((entries)=>{
 });
 
 hiddenElements.forEach(el=>observer.observe(el));
-
- const infoCard = document.getElementById("infoCard");
-const title = document.getElementById("cardTitle");
-const text = document.getElementById("cardText");
-
-const content = {
-
-    about:{
-
-        title:"What is Starsct?",
-
-        text:"Starsct is your intelligent workspace for students and young professionals. Plan your future, organize your goals, discover opportunities, and grow with AI."
-
-    },
-
-    planner:{
-
-        title:"Planner",
-
-        text:"Stay organized with daily planning, study schedules, work routines, calendars and smart reminders that keep you on track."
-
-    },
-
-    ai:{
-
-        title:"AI Assistant",
-
-        text:"Ask questions, build study plans, prepare for interviews, learn new skills and receive personalized guidance whenever you need it."
-
-    },
-
-    growth:{
-
-        title:"Growth",
-
-        text:"Track your goals, habits, streaks and personal progress while building consistency every single day."
-
-    },
-
-    career:{
-
-        title:"Opportunities",
-
-        text:"Discover scholarships, internships, hackathons, competitions and career opportunities tailored to your interests."
-
-    }
-
-};
-
-document.querySelectorAll(".star").forEach(star=>{
-
-    star.addEventListener("click",()=>{
-
-        document.querySelectorAll(".star").forEach(s=>{
-
-            s.classList.remove("active-star");
-
-        });
-
-        star.classList.add("active-star");
-
-        infoCard.style.opacity="0";
-        infoCard.style.transform="translateY(20px)";
-     document
-.querySelectorAll(".constellation-lines line")
-.forEach(line=>{
-
-line.classList.remove("line-active");
-
-});
-
-if(star.dataset.card==="planner")
-document.getElementById("l1").classList.add("line-active");
-
-if(star.dataset.card==="ai")
-document.getElementById("l2").classList.add("line-active");
-
-if(star.dataset.card==="growth")
-document.getElementById("l3").classList.add("line-active");
-
-if(star.dataset.card==="career")
-document.getElementById("l4").classList.add("line-active");
-
-if(star.dataset.card==="about"){
-
-document
-.querySelectorAll(".constellation-lines line")
-.forEach(line=>{
-
-line.classList.add("line-active");
-
-});
-
-}
-
-        setTimeout(()=>{
-
-            title.textContent=content[star.dataset.card].title;
-
-            text.textContent=content[star.dataset.card].text;
-
-            infoCard.style.opacity="1";
-            infoCard.style.transform="translateY(0)";
-
-        },200);
-
-    });
-
-});
  
 </script>
 </body>
