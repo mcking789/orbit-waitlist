@@ -879,6 +879,166 @@ font-size:2.2rem;
     transform .35s ease;
 
 }
+
+ /* ===========================
+   STAR WRAPPER
+=========================== */
+
+.stars-map{
+    position:relative;
+    width:100%;
+    height:550px;
+    margin-top:60px;
+}
+
+/* Center Position */
+
+.star-wrapper.center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+
+/* Star */
+
+.star{
+    width:90px;
+    height:90px;
+
+    border:none;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:2.8rem;
+    color:white;
+
+    background:rgba(37,99,235,.15);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(20px);
+
+    transition:.35s ease;
+
+    box-shadow:
+        0 0 25px rgba(59,130,246,.35);
+}
+
+.star:hover{
+
+    transform:scale(1.12);
+
+    box-shadow:
+        0 0 20px #60a5fa,
+        0 0 45px #3b82f6,
+        0 0 80px #2563eb;
+
+}
+
+/* Popup */
+
+.popup{
+
+    position:absolute;
+
+    left:50%;
+    top:120px;
+
+    transform:translateX(-50%) translateY(30px);
+
+    width:320px;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:rgba(15,23,42,.96);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.4s ease;
+
+    z-index:10;
+
+}
+
+.popup h3{
+
+    margin-bottom:12px;
+    font-size:1.4rem;
+
+}
+
+.popup p{
+
+    color:#94a3b8;
+    line-height:1.8;
+    font-size:.95rem;
+
+}
+
+.popup.show{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:translateX(-50%) translateY(0);
+
+}
+
+ /* Active Star */
+
+.star.active{
+
+    transform:scale(1.18);
+
+    background:#2563eb;
+
+    box-shadow:
+        0 0 20px #60a5fa,
+        0 0 40px #3b82f6,
+        0 0 80px #2563eb,
+        0 0 120px rgba(59,130,246,.5);
+
+}
+
+/* Better popup animation */
+
+.popup{
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:
+        translateX(-50%)
+        translateY(40px)
+        scale(.95);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease,
+        visibility .35s;
+
+}
+
+.popup.show{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1);
+
+}
  
 </style>
 </head>
@@ -992,24 +1152,130 @@ for students and young professionals.
 
     <h2>Explore Starsct</h2>
 
-    <p>
-        Click the stars to discover what Starsct can do.
-    </p>
+    <p>Click each star to discover what Starsct offers.</p>
 
     <div class="stars-map">
-     
-<button class="star" id="aboutStar" data-card="about">★</button>
 
-<button class="star" id="plannerStar" data-card="planner">✦</button>
+        <!-- CENTER -->
 
-<button class="star" id="aiStar" data-card="ai">✦</button>
+        <div class="star-wrapper center">
 
-<button class="star" id="growthStar" data-card="growth">✦</button>
+            <button class="star">★</button>
 
-<button class="star" id="careerStar" data-card="career">✦</button>
+            <div class="popup">
+
+                <h3>What is Starsct?</h3>
+
+                <p>
+                    Starsct is your intelligent workspace that helps
+                    students and young professionals plan, study,
+                    organize life and achieve their goals.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- AI -->
+
+        <div class="star-wrapper ai">
+
+            <button class="star">✦</button>
+
+            <div class="popup">
+
+                <h3>AI Assistant</h3>
+
+                <p>
+                    Your personal AI mentor for studying,
+                    productivity and career guidance.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Planner -->
+
+        <div class="star-wrapper planner">
+
+            <button class="star">✦</button>
+
+            <div class="popup">
+
+                <h3>Planner</h3>
+
+                <p>
+                    Plan your day, timetable,
+                    work schedule and reminders.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Opportunities -->
+
+        <div class="star-wrapper career">
+
+            <button class="star">✦</button>
+
+            <div class="popup">
+
+                <h3>Opportunities</h3>
+
+                <p>
+                    Find internships,
+                    scholarships,
+                    hackathons and jobs.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Journal -->
+
+        <div class="star-wrapper journal">
+
+            <button class="star">✦</button>
+
+            <div class="popup">
+
+                <h3>Journal</h3>
+
+                <p>
+                    Capture your thoughts,
+                    reflect daily and
+                    monitor progress.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Goals -->
+
+        <div class="star-wrapper goals">
+
+            <button class="star">✦</button>
+
+            <div class="popup">
+
+                <h3>Goals</h3>
+
+                <p>
+                    Build habits,
+                    complete milestones
+                    and stay consistent.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
- 
+
 </section>
  
 <footer class="footer hidden">
@@ -1078,6 +1344,55 @@ const observer = new IntersectionObserver((entries)=>{
 });
 
 hiddenElements.forEach(el=>observer.observe(el));
+// ==========================
+// STARSCT POPUPS
+// ==========================
+
+const starWrappers = document.querySelectorAll(".star-wrapper");
+
+starWrappers.forEach(wrapper => {
+
+    const star = wrapper.querySelector(".star");
+    const popup = wrapper.querySelector(".popup");
+
+    star.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        // Close all other popups
+        document.querySelectorAll(".popup").forEach(p => {
+            if (p !== popup) {
+                p.classList.remove("show");
+            }
+        });
+
+        // Remove active glow from all stars
+        document.querySelectorAll(".star").forEach(s => {
+            if (s !== star) {
+                s.classList.remove("active");
+            }
+        });
+
+        // Toggle current popup
+        popup.classList.toggle("show");
+        star.classList.toggle("active");
+
+    });
+
+});
+
+// Click anywhere outside to close everything
+document.addEventListener("click", () => {
+
+    document.querySelectorAll(".popup").forEach(p => {
+        p.classList.remove("show");
+    });
+
+    document.querySelectorAll(".star").forEach(s => {
+        s.classList.remove("active");
+    });
+
+});
  
 </script>
 </body>
