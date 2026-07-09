@@ -80,25 +80,15 @@ right:-180px;
 animation-direction:reverse;
 }
 
-/* STARS */
+/* STAR CANVAS — responsive, resolution-independent starfield */
 
-.stars{
+#starCanvas{
 position:absolute;
+top:0;
+left:0;
 width:100%;
 height:100%;
-background-image:
-radial-gradient(white 1px, transparent 1px),
-radial-gradient(#7dcfff 1px, transparent 1px),
-radial-gradient(#4ea8ff 1px, transparent 1px);
-
-background-size:
-220px 220px,
-170px 170px,
-280px 280px;
-
-opacity:.22;
-
-animation:starsMove 90s linear infinite;
+display:block;
 }
 
 /* FLOAT */
@@ -141,18 +131,6 @@ transform:rotate(360deg);
 
 }
 
-/* STARS */
-
-@keyframes starsMove{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(-180px);
-}
-
 .glass{
 
 background:rgba(255,255,255,.06);
@@ -166,7 +144,6 @@ border-radius:28px;
 box-shadow:
 0 0 40px rgba(0,140,255,.08);
 
-}
 }
 
 *{
@@ -370,7 +347,7 @@ padding:30px;
     <div class="ring ring1"></div>
     <div class="ring ring2"></div>
 
-    <div class="stars"></div>
+    <canvas id="starCanvas"></canvas>
 </div>
 
 <div class="blur1"></div>
@@ -462,6 +439,200 @@ Looking for passionate builders who believe in the future of our Star.
 </div>
 
 </div>
+
+<script>
+// ==========================
+// STARSCT RESPONSIVE STARFIELD
+// ==========================
+(function(){
+
+    const canvas = document.getElementById("starCanvas");
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let width, height, dpr;
+    let stars = [];
+    let shootingStars = [];
+    let mouseX = 0, mouseY = 0;
+
+    // Colour palette so it isn't just plain white dots
+    const colors = ["255,255,255", "173,216,255", "196,181,253", "125,207,255"];
+
+    function resize(){
+
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        generateStars();
+    }
+
+    // Only a couple of stars actually twinkle; everything else stays steady
+    function pickTwinklers(){
+
+        stars.forEach(s => s.twinkles = false);
+
+        const twinklerCount = Math.min(2, stars.length);
+        const chosen = new Set();
+
+        while(chosen.size < twinklerCount){
+            chosen.add(Math.floor(Math.random() * stars.length));
+        }
+
+        chosen.forEach(i => stars[i].twinkles = true);
+    }
+
+    // Star count + size scale with screen area, so phones get fewer/smaller
+    // stars and large desktop monitors get a fuller, bigger sky.
+    function generateStars(){
+
+        const area = width * height;
+        const density = 1 / 2600; // stars per px^2
+        const count = Math.max(60, Math.min(420, Math.round(area * density)));
+
+        stars = [];
+
+        for(let i = 0; i < count; i++){
+
+            const roll = Math.random();
+
+            // Most stars are tiny, fewer are medium, a rare handful are slightly bigger
+            let radius;
+            if(roll > 0.985){
+                radius = (Math.random() * 0.6 + 1.4) * (width < 600 ? 0.75 : 1); // big
+            } else if(roll > 0.88){
+                radius = (Math.random() * 0.9 + 1.0) * (width < 600 ? 0.8 : 1); // medium
+            } else {
+                radius = Math.random() * 0.7 + 0.3; // small
+            }
+
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                baseRadius: radius,
+                big: roll > 0.985,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                twinkleSpeed: Math.random() * 0.015 + 0.004,
+                phase: Math.random() * Math.PI * 2,
+                drift: Math.random() * 0.04 + 0.01,
+                parallax: radius / 3.4, // bigger stars shift a little more with the mouse
+                steadyOpacity: Math.random() * 0.4 + 0.5,
+                twinkles: false
+            });
+        }
+
+        pickTwinklers();
+    }
+
+    function spawnShootingStar(){
+
+        const startX = Math.random() * width * 0.7 + width * 0.15;
+        const startY = Math.random() * height * 0.35;
+        const angle = (Math.random() * 20 + 25) * Math.PI / 180;
+        const speed = Math.random() * 9 + 11;
+
+        shootingStars.push({
+            x: startX,
+            y: startY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 1,
+            len: Math.random() * 90 + 90
+        });
+    }
+
+    let t = 0;
+    let nextShoot = Math.random() * 5000 + 3000;
+    let lastTime = performance.now();
+
+    function frame(now){
+
+        const dt = now - lastTime;
+        lastTime = now;
+        t += dt;
+
+        ctx.clearRect(0, 0, width, height);
+
+        for(let i = 0; i < stars.length; i++){
+
+            const s = stars[i];
+            const twinkle = s.twinkles
+                ? 0.55 + Math.sin(t * s.twinkleSpeed + s.phase) * 0.45
+                : s.steadyOpacity;
+            const r = s.baseRadius;
+
+            const px = s.x + mouseX * s.parallax;
+            const py = s.y + mouseY * s.parallax;
+
+            ctx.beginPath();
+
+            ctx.fillStyle = `rgba(${s.color},${twinkle})`;
+            ctx.arc(px, py, r, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Very slow downward drift, wraps around the screen
+            s.y += s.drift * (dt / 16);
+            if(s.y > height + 5){
+                s.y = -5;
+                s.x = Math.random() * width;
+            }
+        }
+
+        // Shooting stars
+        if(t > nextShoot){
+            spawnShootingStar();
+            nextShoot = t + Math.random() * 6000 + 4000;
+        }
+
+        shootingStars = shootingStars.filter(sh => sh.life > 0);
+
+        shootingStars.forEach(sh => {
+
+            const tailX = sh.x - sh.vx * (sh.len / 12);
+            const tailY = sh.y - sh.vy * (sh.len / 12);
+
+            const grad = ctx.createLinearGradient(sh.x, sh.y, tailX, tailY);
+            grad.addColorStop(0, `rgba(255,255,255,${sh.life})`);
+            grad.addColorStop(1, "rgba(255,255,255,0)");
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(sh.x, sh.y);
+            ctx.lineTo(tailX, tailY);
+            ctx.stroke();
+
+            sh.x += sh.vx * (dt / 16);
+            sh.y += sh.vy * (dt / 16);
+            sh.life -= dt / 900;
+        });
+
+        requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("mousemove", (e) => {
+        mouseX = (e.clientX - width / 2) / 40;
+        mouseY = (e.clientY - height / 2) / 40;
+    });
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 200);
+    });
+
+    resize();
+    requestAnimationFrame(frame);
+
+})();
+</script>
 
 </body>
 </html>
