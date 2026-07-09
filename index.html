@@ -45,47 +45,79 @@ z-index:-100;
 }
 
 
-/* STARS */
+/* STAR CANVAS — responsive, resolution-independent starfield */
 
-.stars{
-
+#starCanvas{
 position:absolute;
-
+top:0;
+left:0;
 width:100%;
 height:100%;
-
-background-image:
-
-radial-gradient(white 1px, transparent 1px),
-radial-gradient(#9ec8ff 1px, transparent 1px),
-radial-gradient(#ffffff 2px, transparent 2px);
-
-background-size:
-
-180px 180px,
-250px 250px,
-400px 400px;
-
-animation:moveStars 60s linear infinite;
-
-opacity:.8;
-
+display:block;
 }
 
-@keyframes moveStars{
+/* Soft nebula clouds — fills empty space with color/depth */
 
-from{
-
-transform:translateY(0);
-
+.blob{
+position:absolute;
+border-radius:50%;
+filter:blur(100px);
+opacity:.4;
+animation:float 22s ease-in-out infinite;
+will-change:transform;
 }
 
-to{
-
-transform:translateY(250px);
-
+.blob1{
+width:clamp(280px,38vw,520px);
+height:clamp(280px,38vw,520px);
+background:radial-gradient(circle,#2563eb,transparent 70%);
+top:2%;
+left:-12%;
 }
 
+.blob2{
+width:clamp(240px,32vw,420px);
+height:clamp(240px,32vw,420px);
+background:radial-gradient(circle,#8b5cf6,transparent 70%);
+top:48%;
+right:-14%;
+animation-delay:4s;
+}
+
+.blob3{
+width:clamp(200px,26vw,340px);
+height:clamp(200px,26vw,340px);
+background:radial-gradient(circle,#22d3ee,transparent 70%);
+bottom:-6%;
+left:32%;
+animation-delay:9s;
+}
+
+/* Slow rotating orbit rings — decorative sci-fi depth */
+
+.ring{
+position:absolute;
+top:50%;
+left:50%;
+border:1px solid rgba(255,255,255,.05);
+border-radius:50%;
+animation:rotateRing 160s linear infinite;
+}
+
+.ring1{
+width:min(1100px,140vw);
+height:min(1100px,140vw);
+transform:translate(-50%,-50%);
+border-color:rgba(96,165,250,.07);
+}
+
+.ring2{
+width:min(1500px,180vw);
+height:min(1500px,180vw);
+transform:translate(-50%,-50%);
+border-color:rgba(139,92,246,.05);
+animation-duration:220s;
+animation-direction:reverse;
 }
 
  .role-selector{
@@ -171,27 +203,6 @@ grid-template-columns:1fr;
 }
 
 }
-/* STARS */
-
-.stars{
-position:absolute;
-width:100%;
-height:100%;
-background-image:
-radial-gradient(white 1px, transparent 1px),
-radial-gradient(#7dcfff 1px, transparent 1px),
-radial-gradient(#4ea8ff 1px, transparent 1px);
-
-background-size:
-220px 220px,
-170px 170px,
-280px 280px;
-
-opacity:.22;
-
-animation:starsMove 90s linear infinite;
-}
-
 /* FLOAT */
 
 @keyframes float{
@@ -231,20 +242,6 @@ transform:rotate(360deg);
 }
 
 }
-
-/* STARS */
-
-@keyframes starsMove{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(-180px);
-}
-
-}   /* <-- ADD THIS */
 
 .glass{
 
@@ -1009,7 +1006,7 @@ font-size:2.2rem;
   <div class="ring ring1"></div>
   <div class="ring ring2"></div>
 
-  <div class="stars"></div>
+  <canvas id="starCanvas"></canvas>
 
 </div>
 
@@ -1227,6 +1224,198 @@ for students and young professionals.
 
 </footer>
 <script>
+// ==========================
+// STARSCT RESPONSIVE STARFIELD
+// ==========================
+(function(){
+
+    const canvas = document.getElementById("starCanvas");
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let width, height, dpr;
+    let stars = [];
+    let shootingStars = [];
+    let mouseX = 0, mouseY = 0;
+
+    // Colour palette so it isn't just plain white dots
+    const colors = ["255,255,255", "173,216,255", "196,181,253", "125,207,255"];
+
+    function resize(){
+
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        generateStars();
+    }
+
+    // Star count + size scale with screen area, so phones get fewer/smaller
+    // stars and large desktop monitors get a fuller, bigger sky.
+    function generateStars(){
+
+        const area = width * height;
+        const density = 1 / 2600; // stars per px^2
+        const count = Math.max(60, Math.min(420, Math.round(area * density)));
+
+        stars = [];
+
+        for(let i = 0; i < count; i++){
+
+            const roll = Math.random();
+
+            // Most stars are tiny, fewer are medium, a rare handful are big + glowing
+            let radius;
+            if(roll > 0.985){
+                radius = (Math.random() * 0.6 + 1.4) * (width < 600 ? 0.75 : 1); // big
+            } else if(roll > 0.88){
+                radius = (Math.random() * 0.9 + 1.0) * (width < 600 ? 0.8 : 1); // medium
+            } else {
+                radius = Math.random() * 0.7 + 0.3; // small
+            }
+
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                baseRadius: radius,
+                big: roll > 0.985,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                twinkleSpeed: Math.random() * 0.015 + 0.004,
+                phase: Math.random() * Math.PI * 2,
+                drift: Math.random() * 0.04 + 0.01,
+                parallax: radius / 3.4, // bigger stars shift a little more with the mouse
+                steadyOpacity: Math.random() * 0.4 + 0.5,
+                twinkles: false
+            });
+        }
+
+        pickTwinklers();
+    }
+
+    function spawnShootingStar(){
+
+        const startX = Math.random() * width * 0.7 + width * 0.15;
+        const startY = Math.random() * height * 0.35;
+        const angle = (Math.random() * 20 + 25) * Math.PI / 180;
+        const speed = Math.random() * 9 + 11;
+
+        shootingStars.push({
+            x: startX,
+            y: startY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 1,
+            len: Math.random() * 90 + 90
+        });
+    }
+
+    // Only a couple of stars actually twinkle; everything else stays steady
+    function pickTwinklers(){
+
+        stars.forEach(s => s.twinkles = false);
+
+        const twinklerCount = Math.min(2, stars.length);
+        const chosen = new Set();
+
+        while(chosen.size < twinklerCount){
+            chosen.add(Math.floor(Math.random() * stars.length));
+        }
+
+        chosen.forEach(i => stars[i].twinkles = true);
+    }
+
+    let t = 0;
+    let nextShoot = Math.random() * 5000 + 3000;
+    let lastTime = performance.now();
+
+    function frame(now){
+
+        const dt = now - lastTime;
+        lastTime = now;
+        t += dt;
+
+        ctx.clearRect(0, 0, width, height);
+
+        for(let i = 0; i < stars.length; i++){
+
+            const s = stars[i];
+            const twinkle = s.twinkles
+                ? 0.55 + Math.sin(t * s.twinkleSpeed + s.phase) * 0.45
+                : s.steadyOpacity;
+            const r = s.baseRadius;
+
+            const px = s.x + mouseX * s.parallax;
+            const py = s.y + mouseY * s.parallax;
+
+            ctx.beginPath();
+
+            ctx.fillStyle = `rgba(${s.color},${twinkle})`;
+            ctx.arc(px, py, r, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Very slow downward drift, wraps around the screen
+            s.y += s.drift * (dt / 16);
+            if(s.y > height + 5){
+                s.y = -5;
+                s.x = Math.random() * width;
+            }
+        }
+
+        // Shooting stars
+        if(t > nextShoot){
+            spawnShootingStar();
+            nextShoot = t + Math.random() * 6000 + 4000;
+        }
+
+        shootingStars = shootingStars.filter(sh => sh.life > 0);
+
+        shootingStars.forEach(sh => {
+
+            const tailX = sh.x - sh.vx * (sh.len / 12);
+            const tailY = sh.y - sh.vy * (sh.len / 12);
+
+            const grad = ctx.createLinearGradient(sh.x, sh.y, tailX, tailY);
+            grad.addColorStop(0, `rgba(255,255,255,${sh.life})`);
+            grad.addColorStop(1, "rgba(255,255,255,0)");
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(sh.x, sh.y);
+            ctx.lineTo(tailX, tailY);
+            ctx.stroke();
+
+            sh.x += sh.vx * (dt / 16);
+            sh.y += sh.vy * (dt / 16);
+            sh.life -= dt / 900;
+        });
+
+        requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("mousemove", (e) => {
+        mouseX = (e.clientX - width / 2) / 40;
+        mouseY = (e.clientY - height / 2) / 40;
+    });
+
+    let resizeTimer2;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer2);
+        resizeTimer2 = setTimeout(resize, 200);
+    });
+
+    resize();
+    requestAnimationFrame(frame);
+
+})();
+
 const roleButtons = document.querySelectorAll(".role-btn");
 const roleInput = document.getElementById("roleInput");
 
