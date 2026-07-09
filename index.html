@@ -537,16 +537,16 @@
       <!-- EDIT ME: change data-target to update the number, edit the sentence text freely -->
       <div class="joined-row">
         <div class="avatar-stack">
+          <div class="avatar">S</div>
+          <div class="avatar">A</div>
           <div class="avatar">R</div>
           <div class="avatar">A</div>
-          <div class="avatar">K</div>
-          <div class="avatar">S</div>
         </div>
-        <div class="joined-text"><strong class="joined-count" data-target="1240">0</strong> people already joined the waitlist</div>
+        <div class="joined-text"><strong class="joined-count" data-target="12">0</strong> people already joined the waitlist</div>
       </div>
 
       <form class="waitlist-form" id="waitlistForm">
-        <input type="email" id="emailInput" placeholder="you@university.edu" required>
+        <input type="email" id="emailInput" placeholder="you@gmail.com" required>
         <button type="submit" class="btn btn-primary">Join the waitlist</button>
       </form>
       <div class="form-msg" id="formMsg"></div>
@@ -747,7 +747,7 @@
     <h2>Your universe is waiting to be organized.</h2>
     <p>Join the waitlist and be the first to know when Starsct opens.</p>
     <form class="waitlist-form" id="waitlistForm2">
-      <input type="email" id="emailInput2" placeholder="you@university.edu" required>
+      <input type="email" id="emailInput2" placeholder="you@gmail.com" required>
       <button type="submit" class="btn btn-primary">Join the waitlist</button>
     </form>
     <div class="form-msg" id="formMsg2"></div>
@@ -799,7 +799,7 @@
       if(email){
         msg.textContent = "You're on the list. We'll email you when Starsct opens.";
         input.value = '';
-        input.placeholder = 'you@university.edu';
+        input.placeholder = 'you@gmail.com';
       }
     });
   }
