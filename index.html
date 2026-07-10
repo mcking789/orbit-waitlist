@@ -24,6 +24,10 @@
 
   html{ scroll-behavior:smooth; }
 
+  #waitlist, #features, #roadmap, #survey{
+    scroll-margin-top: 90px;
+  }
+
   body{
     background: var(--bg);
     color: var(--text);
@@ -303,6 +307,154 @@
     height: 18px;
     margin-top: -2px;
     margin-bottom: 8px;
+  }
+
+  /* ---------- success overlay ---------- */
+  .success-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s ease, visibility .35s;
+  }
+  .success-overlay.show{
+    opacity: 1;
+    visibility: visible;
+  }
+  .success-backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(4,6,12,0.78);
+    backdrop-filter: blur(6px);
+  }
+  .success-card{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 380px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 40px 34px 34px;
+    text-align: center;
+    box-shadow: 0 0 0 1px rgba(96,165,250,0.06), 0 30px 80px rgba(0,0,0,0.55);
+    transform: scale(.85) translateY(18px);
+    opacity: 0;
+    transition: transform .45s cubic-bezier(.2,1.4,.4,1), opacity .35s ease;
+  }
+  .success-overlay.show .success-card{
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  .success-close{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .success-close:hover{
+    color: var(--text);
+    border-color: var(--accent);
+  }
+  .success-burst{
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 22px;
+  }
+  .success-ring{
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 66;
+    stroke-dashoffset: 66;
+  }
+  .success-overlay.show .success-ring{
+    animation: successRing .55s ease forwards .1s;
+  }
+  @keyframes successRing{
+    to{ stroke-dashoffset: 0; }
+  }
+  .success-check{
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16;
+    stroke-dashoffset: 16;
+    filter: drop-shadow(0 0 6px rgba(96,165,250,0.8));
+  }
+  .success-overlay.show .success-check{
+    animation: successCheck .35s ease forwards .55s;
+  }
+  @keyframes successCheck{
+    to{ stroke-dashoffset: 0; }
+  }
+  .success-spark{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: var(--accent);
+    font-size: 13px;
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(0);
+  }
+  .success-overlay.show .success-spark{
+    animation: sparkOut .7s cubic-bezier(.2,.8,.3,1) forwards .3s;
+  }
+  .success-spark.s1{ --tx: -52px; --ty: -46px; }
+  .success-spark.s2{ --tx: 54px;  --ty: -40px; }
+  .success-spark.s3{ --tx: -60px; --ty: 18px;  animation-delay: .36s !important; }
+  .success-spark.s4{ --tx: 60px;  --ty: 22px;  animation-delay: .4s !important; }
+  .success-spark.s5{ --tx: -18px; --ty: 58px;  animation-delay: .44s !important; }
+  .success-spark.s6{ --tx: 20px;  --ty: 60px;  animation-delay: .48s !important; }
+  @keyframes sparkOut{
+    0%{ opacity: 0; transform: translate(-50%,-50%) scale(0); }
+    45%{ opacity: 1; }
+    100%{
+      opacity: 0;
+      transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1);
+    }
+  }
+  .success-eyebrow{
+    justify-content: center;
+    display: inline-flex;
+    margin-bottom: 12px;
+  }
+  .success-card h3{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .success-card p{
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 26px;
+  }
+  .success-ok{
+    width: 100%;
+  }
+  @media (max-width: 480px){
+    .success-card{ padding: 32px 22px 26px; }
   }
 
   /* ---------- section shared ---------- */
@@ -589,31 +741,96 @@
     line-height: 1.5;
   }
 
-  /* ---------- final cta ---------- */
-  .final-cta{
+  /* ---------- quick survey ---------- */
+  .survey-section{
     text-align:center;
-    padding: 100px 0;
   }
-  .final-cta h2{
-    font-size: 40px;
-    font-weight: 700;
-    margin-bottom: 18px;
-    max-width: 640px;
-    margin-left:auto;
-    margin-right:auto;
+  .survey-section .eyebrow{
+    justify-content:center;
+    display:inline-flex;
   }
-  .final-cta p{
+  .survey-section h2{
+    font-size: 34px;
+    margin-bottom: 10px;
+  }
+  .survey-section > p{
     color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 36px;
+    font-size: 15px;
+    max-width: 460px;
+    margin: 0 auto 36px;
   }
-  .final-cta .waitlist-form{
-    margin: 0 auto 14px;
+  .survey-card{
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    text-align: left;
   }
-  .final-cta .form-msg, .final-cta .trust-line{
-    text-align:center;
+  .survey-question{
+    margin-bottom: 26px;
   }
-
+  .survey-question:last-of-type{
+    margin-bottom: 0;
+  }
+  .survey-question label{
+    display:block;
+    font-size: 14.5px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .survey-chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .survey-chip{
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .survey-chip:hover{
+    border-color: rgba(96,165,250,0.4);
+    color: var(--text);
+  }
+  .survey-chip.active{
+    background: rgba(37,99,235,0.15);
+    border-color: var(--accent);
+    color: var(--text);
+    box-shadow: 0 0 14px rgba(37,99,235,0.35);
+  }
+  .survey-actions{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 30px;
+    padding-top: 26px;
+    border-top: 1px solid var(--border);
+  }
+  .survey-skip{
+    font-size: 13px;
+    color: var(--faint);
+    cursor: pointer;
+    background:none;
+    border:none;
+    font-family:inherit;
+  }
+  .survey-skip:hover{ color: var(--muted); }
+  .survey-card .form-msg{
+    margin-top: 16px;
+  }
+  @media (max-width: 600px){
+    .survey-card{ padding: 24px; }
+    .survey-actions{ flex-direction: column-reverse; align-items: stretch; }
+    .survey-actions .btn{ width:100%; }
+  }
   /* ---------- footer ---------- */
   footer{
     border-top: 1px solid var(--border);
@@ -635,11 +852,36 @@
   }
   .footer-right{
     display:flex;
+    align-items:center;
     gap: 26px;
     font-size: 13.5px;
     color: var(--faint);
   }
   .footer-right a:hover{ color: var(--muted); }
+  .footer-waitlist-btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 100px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 0 14px rgba(37,99,235,0.4);
+    transition: all .18s ease;
+  }
+  .footer-waitlist-btn:hover{
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 22px rgba(96,165,250,0.7);
+    transform: translateY(-2px);
+  }
+  .footer-waitlist-btn svg{
+    transition: transform .18s ease;
+  }
+  .footer-waitlist-btn:hover svg{
+    transform: translateY(-2px);
+  }
 
   /* ---------- responsive ---------- */
   @media (max-width: 900px){
@@ -656,7 +898,6 @@
     .audience-grid{ grid-template-columns: 1fr; }
     .hero h1{ font-size: 32px; }
     .section-head h2{ font-size: 28px; }
-    .final-cta h2{ font-size: 28px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -955,19 +1196,44 @@
 <div class="divider"></div>
 
 <div class="wrap">
-  <section class="final-cta">
-    <h2>Your universe is waiting to be organized.</h2>
-    <p>Join the waitlist and be the first to know when Starsct opens.</p>
-    <form class="waitlist-form" id="waitlistForm2" action="https://formspree.io/f/xaqzjzgz" method="POST">
-      <div class="form-card">
-        <input type="text" name="name" id="nameInput2" placeholder="Your name" required>
-        <input type="email" name="email" id="emailInput2" placeholder="your@gmail.com" required>
+  <section class="survey-section" id="survey">
+    <div class="eyebrow mono">⏱ Takes 30 seconds</div>
+    <h2>Help us build the right thing.</h2>
+    <p>Two quick questions — no email needed. Your answers shape what we build first.</p>
+
+    <form class="survey-card" id="surveyForm" action="https://formspree.io/f/xaqzjzgz" method="POST">
+
+      <div class="survey-question">
+        <label>What should Starsct nail first?</label>
+        <div class="survey-chips" data-field="priority">
+          <button type="button" class="survey-chip" data-value="Planning & Scheduling">Planning &amp; Scheduling</button>
+          <button type="button" class="survey-chip" data-value="AI Study Help">AI Study Help</button>
+          <button type="button" class="survey-chip" data-value="Job & Internship Search">Job &amp; Internship Search</button>
+          <button type="button" class="survey-chip" data-value="Journaling">Journaling</button>
+          <button type="button" class="survey-chip" data-value="Habit Tracking">Habit Tracking</button>
+        </div>
+        <input type="hidden" name="survey_priority" id="surveyPriority">
       </div>
-      <input type="hidden" name="role" id="roleInput2">
-      <button type="submit" class="btn btn-primary">Join the waitlist</button>
+
+      <div class="survey-question">
+        <label>How did you hear about us?</label>
+        <div class="survey-chips" data-field="source">
+          <button type="button" class="survey-chip" data-value="Instagram">Instagram</button>
+          <button type="button" class="survey-chip" data-value="Twitter / X">Twitter / X</button>
+          <button type="button" class="survey-chip" data-value="Friend">Friend</button>
+          <button type="button" class="survey-chip" data-value="Reddit">Reddit</button>
+          <button type="button" class="survey-chip" data-value="Other">Other</button>
+        </div>
+        <input type="hidden" name="survey_source" id="surveySource">
+      </div>
+
+      <div class="survey-actions">
+        <button type="button" class="survey-skip" id="surveySkip">Skip for now</button>
+        <button type="submit" class="btn btn-primary">Send feedback</button>
+      </div>
+
+      <div class="form-msg" id="surveyMsg"></div>
     </form>
-    <div class="form-msg" id="formMsg2"></div>
-    <div class="trust-line">No spam, just launch updates.</div>
   </section>
 </div>
 
@@ -982,10 +1248,42 @@
     <div class="footer-right">
       <a href="#features">Features</a>
       <a href="#roadmap">Roadmap</a>
-      <a href="#waitlist">Waitlist</a>
+      <a href="#survey">Survey</a>
+      <a href="#waitlist" class="footer-waitlist-btn">
+        Join the Waitlist
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </a>
     </div>
   </div>
 </footer>
+
+<div class="success-overlay" id="successOverlay" aria-hidden="true">
+  <div class="success-backdrop" id="successBackdrap"></div>
+  <div class="success-card" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <button class="success-close" id="successClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="success-burst">
+      <svg width="90" height="90" viewBox="0 0 24 24" fill="none">
+        <circle class="success-ring" cx="12" cy="12" r="10.5"/>
+        <path class="success-check" d="M7 12.5l3 3 7-7"/>
+      </svg>
+      <span class="success-spark s1">✦</span>
+      <span class="success-spark s2">✦</span>
+      <span class="success-spark s3">✦</span>
+      <span class="success-spark s4">✦</span>
+      <span class="success-spark s5">✦</span>
+      <span class="success-spark s6">✦</span>
+    </div>
+
+    <div class="eyebrow mono success-eyebrow">You're in</div>
+    <h3 id="successTitle">Welcome to the universe<span id="successName"></span>.</h3>
+    <p>We'll email you the moment Starsct opens. Keep an eye on your inbox.</p>
+
+    <button class="btn btn-primary success-ok" id="successOk">Got it</button>
+  </div>
+</div>
 
 <script>
 
@@ -1065,8 +1363,45 @@
     });
   });
 
+  // animated "you're in" success modal, shown after a waitlist join
+  const successOverlay = document.getElementById('successOverlay');
+  const successNameEl = document.getElementById('successName');
+  let successCloseTimer = null;
+
+  function showSuccessModal(firstName){
+    if(!successOverlay) return;
+    successNameEl.textContent = firstName ? `, ${firstName}` : '';
+
+    // restart CSS entrance animations even if opened twice in a row
+    successOverlay.classList.remove('show');
+    void successOverlay.offsetWidth;
+    successOverlay.classList.add('show');
+    successOverlay.setAttribute('aria-hidden', 'false');
+
+    clearTimeout(successCloseTimer);
+    successCloseTimer = setTimeout(hideSuccessModal, 6000);
+  }
+
+  function hideSuccessModal(){
+    if(!successOverlay) return;
+    successOverlay.classList.remove('show');
+    successOverlay.setAttribute('aria-hidden', 'true');
+    clearTimeout(successCloseTimer);
+  }
+
+  const successClose = document.getElementById('successClose');
+  const successOk = document.getElementById('successOk');
+  const successBackdrop = document.getElementById('successBackdrap');
+  if(successClose) successClose.addEventListener('click', hideSuccessModal);
+  if(successOk) successOk.addEventListener('click', hideSuccessModal);
+  if(successBackdrop) successBackdrop.addEventListener('click', hideSuccessModal);
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') hideSuccessModal();
+  });
+
   function handleWaitlist(formId, nameId, inputId, msgId){
     const form = document.getElementById(formId);
+    if(!form) return;
     form.addEventListener('submit', function(e){
       e.preventDefault();
       const nameInput = document.getElementById(nameId);
@@ -1090,11 +1425,7 @@
       .then(res => {
         if(res.ok){
           const firstName = name ? name.split(' ')[0] : '';
-          const roleField = form.querySelector('input[name="role"]');
-          const roleSuffix = roleField && roleField.value ? ` (${roleField.value})` : '';
-          msg.textContent = firstName
-            ? `Thank you, ${firstName}${roleSuffix}! You're on the list — we'll email you when Starsct opens.`
-            : "Thank you! You're on the list — we'll email you when Starsct opens.";
+          showSuccessModal(firstName);
           form.reset();
           audienceCards.forEach(c => c.classList.remove('active'));
           roleInputs.forEach(inp => { inp.value = ''; });
@@ -1112,7 +1443,73 @@
     });
   }
   handleWaitlist('waitlistForm', 'nameInput', 'emailInput', 'formMsg');
-  handleWaitlist('waitlistForm2', 'nameInput2', 'emailInput2', 'formMsg2');
+
+  // 30-second survey — single-select chips per question, feeds hidden inputs
+  (function(){
+    const surveyForm = document.getElementById('surveyForm');
+    if(!surveyForm) return;
+
+    const skipBtn = document.getElementById('surveySkip');
+    const msg = document.getElementById('surveyMsg');
+    const submitBtn = surveyForm.querySelector('button[type="submit"]');
+
+    document.querySelectorAll('.survey-chips').forEach(group => {
+      const field = group.dataset.field;
+      const hiddenInput = document.getElementById(
+        field === 'priority' ? 'surveyPriority' : 'surveySource'
+      );
+      group.querySelectorAll('.survey-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const isActive = chip.classList.contains('active');
+          group.querySelectorAll('.survey-chip').forEach(c => c.classList.remove('active'));
+          if(!isActive){
+            chip.classList.add('active');
+            if(hiddenInput) hiddenInput.value = chip.dataset.value;
+          } else if(hiddenInput){
+            hiddenInput.value = '';
+          }
+        });
+      });
+    });
+
+    surveyForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      msg.textContent = '';
+
+      fetch(surveyForm.action, {
+        method: 'POST',
+        body: new FormData(surveyForm),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => {
+        if(res.ok){
+          msg.textContent = "Thanks for the input — it genuinely helps us build the right thing first.";
+          surveyForm.querySelectorAll('.survey-chip.active').forEach(c => c.classList.remove('active'));
+          document.getElementById('surveyPriority').value = '';
+          document.getElementById('surveySource').value = '';
+        } else {
+          msg.textContent = "Something went wrong — please try again.";
+        }
+      })
+      .catch(() => {
+        msg.textContent = "Something went wrong — please try again.";
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      });
+    });
+
+    if(skipBtn){
+      skipBtn.addEventListener('click', () => {
+        msg.textContent = "No worries — thanks for stopping by!";
+      });
+    }
+  })();
 
   // count-up animation for "people already joined" — plays once it scrolls into view
   function animateCount(el){
