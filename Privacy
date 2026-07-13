@@ -1,1 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Starsct</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #09090B;
+    --surface: #101014;
+    --surface-2: #16161C;
+    --border: #232329;
+    --blue: #2563EB;
+    --accent: #60A5FA;
+    --text: #FFFFFF;
+    --muted: #94A3B8;
+    --faint: #55596b;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1,h2,h3, .display{
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .mono{
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  a{ color: var(--accent); text-decoration:none; }
+  a:hover{ text-decoration: underline; }
+
+  /* ---------- background stars ---------- */
+  .stars-bg{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .stars-bg::before,
+  .stars-bg::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+    animation: stars-drift 140s linear infinite;
+  }
+  .stars-bg::before{
+    background-image:
+      radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1.2px 1.2px at 120px 80px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.4px 1.4px at 200px 160px, rgba(96,165,250,0.85), transparent),
+      radial-gradient(1px 1px at 300px 40px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.3px 1.3px at 60px 220px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 260px 260px, rgba(96,165,250,0.7), transparent);
+    background-size: 340px 340px;
+    opacity: 0.7;
+  }
+  .stars-bg::after{
+    background-image:
+      radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 160px 40px, rgba(255,255,255,0.55), transparent),
+      radial-gradient(1px 1px at 240px 190px, rgba(96,165,250,0.6), transparent),
+      radial-gradient(1.2px 1.2px at 320px 260px, rgba(255,255,255,0.5), transparent);
+    background-size: 420px 420px;
+    animation-duration: 200s;
+    animation-direction: reverse;
+    opacity: 0.5;
+  }
+  @keyframes stars-drift{
+    from{ transform: translateY(0); }
+    to{ transform: translateY(-420px); }
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(9,9,11,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height: 76px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .logo-mark{ width: 22px; height: 22px; position:relative; }
+  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(96,165,250,0.6)); }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: 36px;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .nav-links a{ color: var(--muted); }
+  .nav-links a:hover{ color: var(--text); text-decoration:none; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor:pointer;
+    transition: all .18s ease;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(37,99,235,0.5), 0 0 4px rgba(96,165,250,0.4);
+  }
+  .btn-primary:hover{
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 26px rgba(96,165,250,0.75);
+    text-decoration:none;
+  }
+
+  /* ---------- legal content ---------- */
+  .legal-hero{
+    padding: 64px 0 32px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .legal-hero .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size: 11.5px;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .legal-hero .eyebrow::before{
+    content:'';
+    width:6px; height:6px;
+    border-radius:50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .legal-hero h1{
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .legal-hero .meta{
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .legal-body{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8px 0 100px;
+    color: var(--muted);
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+  .legal-body h2{
+    color: var(--text);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 40px 0 14px;
+  }
+  .legal-body h2:first-child{ margin-top: 0; }
+  .legal-body p{ margin-bottom: 14px; }
+  .legal-body ul, .legal-body ol{
+    margin: 0 0 14px 22px;
+  }
+  .legal-body li{ margin-bottom: 8px; }
+  .legal-body strong{ color: var(--text); font-weight: 600; }
+  .legal-body a{ color: var(--accent); }
+  .legal-body hr{
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+  .legal-body .placeholder{
+    color: var(--accent);
+    background: rgba(96,165,250,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.92em;
+  }
+  .legal-body .contact-block{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .legal-body .contact-block p{ margin-bottom: 4px; }
+  .legal-nav-crumb{
+    max-width: 760px;
+    margin: 0 auto;
+    padding-top: 28px;
+    font-size: 13.5px;
+    color: var(--faint);
+  }
+  .legal-nav-crumb a{ color: var(--faint); }
+  .legal-nav-crumb a:hover{ color: var(--muted); }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 44px 0;
+  }
+  footer .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-left{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    color: var(--faint);
+    font-size: 13.5px;
+  }
+  .footer-right{
+    display:flex;
+    align-items:center;
+    gap: 26px;
+    font-size: 13.5px;
+    color: var(--faint);
+  }
+  .footer-right a{ color: var(--faint); }
+  .footer-right a:hover{ color: var(--muted); text-decoration:none; }
+
+  @media (max-width: 700px){
+    .legal-hero{ padding: 44px 0 24px; }
+    .legal-hero h1{ font-size: 32px; }
+    .legal-body h2{ font-size: 19px; }
+    .nav-links{ gap: 16px; }
+    .nav-links span.mono{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-bg" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/>
+        </svg>
+      </span>
+      STARSCT
+    </a>
+    <div class="nav-links">
+      <a href="terms.html">Terms of Service</a>
+      <a href="index.html#waitlist" class="btn btn-primary">Join waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="legal-nav-crumb"><a href="index.html">← Back to Starsct</a></div>
+
+  <section class="legal-hero">
+    <div class="eyebrow mono">Legal</div>
+    <h1>Privacy Policy</h1>
+    <div class="meta">Effective Date: <span class="placeholder">[INSERT EFFECTIVE DATE]</span> &nbsp;·&nbsp; Last Updated: <span class="placeholder">[INSERT LAST UPDATED DATE]</span></div>
+  </section>
+
+  <article class="legal-body">
+    <p>Starsct ("Starsct," "we," "us," or "our") provides an AI-powered productivity platform designed to help students and young professionals plan, track, and achieve their goals through tools such as an AI assistant, planner, goal tracker, journal, opportunities feed, and dashboard (collectively, the "Service").</p>
+    <p>This Privacy Policy explains how we collect, use, disclose, and protect information when you visit our website, join our waitlist, or use the Service. By using our website or the Service, you agree to the practices described in this Privacy Policy.</p>
+    <p>If you do not agree with this Privacy Policy, please do not use our website or the Service.</p>
+
+    <hr>
+
+    <h2>1. Who We Are</h2>
+    <p>Starsct is operated by <strong><span class="placeholder">[INSERT LEGAL COMPANY NAME]</span></strong>, a company registered in <span class="placeholder">[INSERT JURISDICTION OF INCORPORATION]</span> ("Company," "we," "us"). Our registered address is <span class="placeholder">[INSERT COMPANY ADDRESS]</span>.</p>
+    <p>If you have any questions about this Privacy Policy or our data practices, you can contact us at <span class="placeholder">[INSERT SUPPORT EMAIL]</span>.</p>
+
+    <h2>2. Information We Collect</h2>
+    <p><strong>Waitlist Sign-Up.</strong> When you join our waitlist, we collect:</p>
+    <ul>
+      <li>Your <strong>name</strong></li>
+      <li>Your <strong>email address</strong></li>
+      <li>Your <strong>role</strong> (e.g., student, young professional, or other category you select)</li>
+    </ul>
+    <p>This information is submitted through our website's waitlist and survey forms and is processed by our third-party form provider, Formspree, on our behalf.</p>
+
+    <p><strong>Survey Responses.</strong> If you choose to complete an optional survey to help us shape the product, we collect the responses you provide.</p>
+
+    <p><strong>Account &amp; Product Information (Future Service Use).</strong> Once the Service launches, if you create an account or use product features, we may collect additional information, including:</p>
+    <ul>
+      <li>Account credentials (e.g., email and password, or single sign-on identifiers)</li>
+      <li>Profile information you choose to add</li>
+      <li>Planner, calendar, and scheduling entries (e.g., tasks, timetables, reminders)</li>
+      <li>Goal-setting data, milestones, habits, and streak information</li>
+      <li>Journal entries, private notes, and mood-tracking data you choose to record</li>
+      <li>Conversations and prompts submitted to our AI assistant</li>
+      <li>Career and opportunity preferences (e.g., interests related to scholarships, internships, jobs, competitions, or events)</li>
+      <li>Any other information you voluntarily provide through the Service</li>
+    </ul>
+
+    <p><strong>Communications.</strong> If you contact us directly (e.g., via email or a support form), we collect the information you include in that communication.</p>
+
+    <p><strong>Information Collected Automatically.</strong> When you visit our website or use the Service, we and our service providers may automatically collect device information, IP address and approximate location, usage data, and information via cookies and similar technologies (see Section 6).</p>
+
+    <p><strong>Information from Third Parties.</strong> We may receive information about you from third-party services you choose to connect to the Service (e.g., single sign-on providers), subject to the permissions you grant.</p>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use the information we collect to:</p>
+    <ol>
+      <li><strong>Operate the waitlist</strong> — to notify you about early access, product updates, and launch announcements.</li>
+      <li><strong>Provide and improve the Service</strong> — to deliver core features such as the AI assistant, planner, goal tracking, journal, opportunities feed, and dashboard, and to develop new features.</li>
+      <li><strong>Personalize your experience</strong> — to tailor recommendations (e.g., scholarships, internships, study plans) based on your activity and preferences.</li>
+      <li><strong>Power AI features</strong> — to process your inputs and generate responses through our AI assistant (see Section 4).</li>
+      <li><strong>Communicate with you</strong> — to send onboarding emails, product updates, service notices, and, where permitted, marketing communications you may opt out of at any time.</li>
+      <li><strong>Maintain security and prevent abuse</strong> — to detect, investigate, and prevent fraudulent, unauthorized, or illegal activity.</li>
+      <li><strong>Analyze and improve</strong> — to understand usage so we can improve functionality, usability, and performance.</li>
+      <li><strong>Comply with legal obligations</strong> — to meet applicable legal, regulatory, and contractual requirements.</li>
+    </ol>
+    <p>We do not sell your personal information.</p>
+
+    <h2>4. AI Features and Your Data</h2>
+    <p>Starsct's AI assistant and related features (such as personalized planning suggestions) process the information you provide — including prompts, planner entries, goals, and journal content, where applicable — in order to generate helpful responses and recommendations.</p>
+    <ul>
+      <li>We may use <strong>third-party AI service providers</strong> to power these features. Any such providers are contractually required to handle your data in accordance with applicable privacy laws and are not permitted to use your data to train their own models without your consent, except as disclosed to you.</li>
+      <li>Please avoid submitting sensitive information (such as government ID numbers, financial account details, or health information) to the AI assistant unless it is necessary for the specific feature you are using.</li>
+      <li>Journal entries, private notes, and mood-tracking data are treated as sensitive personal information. We apply additional safeguards to this category of data and do not use it for advertising purposes.</li>
+    </ul>
+
+    <h2>5. How We Share Your Information</h2>
+    <p>We may share your information with:</p>
+    <ul>
+      <li><strong>Service Providers</strong> who help us operate our website and Service, such as form processing (Formspree), email delivery, hosting, analytics, and AI processing providers, who may only use your information to perform services on our behalf.</li>
+      <li>Parties involved in a <strong>Business Transfer</strong> — a merger, acquisition, financing, or sale of assets.</li>
+      <li>Recipients required by <strong>Legal Requirements</strong>, or where necessary to comply with legal process, protect our rights, or protect the safety of our users or the public.</li>
+      <li>Any other party <strong>with your consent</strong> or at your direction.</li>
+    </ul>
+    <p>We do not share your journal entries, private notes, or mood-tracking data with third parties for marketing or advertising purposes.</p>
+
+    <h2>6. Cookies and Tracking Technologies</h2>
+    <p>We and our service providers may use cookies, web beacons, and similar technologies to operate our website, remember your preferences, and understand how visitors use our site. You can control cookies through your browser settings; disabling cookies may affect certain website functionality.</p>
+
+    <h2>7. Data Retention</h2>
+    <p>We retain personal information for as long as necessary to fulfill the purposes described in this Privacy Policy, unless a longer retention period is required or permitted by law. Waitlist information is retained until the Service launches and you either create an account or request deletion. You may request deletion of your information at any time (see Section 9).</p>
+
+    <h2>8. Data Security</h2>
+    <p>We implement reasonable technical and organizational measures designed to protect your information from unauthorized access, disclosure, alteration, or destruction. However, no method of transmission over the internet or electronic storage is completely secure, and we cannot guarantee absolute security.</p>
+
+    <h2>9. Your Rights and Choices</h2>
+    <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+    <ul>
+      <li><strong>Access</strong> — request a copy of the personal information we hold about you.</li>
+      <li><strong>Correction</strong> — request that we correct inaccurate or incomplete information.</li>
+      <li><strong>Deletion</strong> — request that we delete your personal information, subject to certain exceptions.</li>
+      <li><strong>Portability</strong> — request a copy of your information in a portable format.</li>
+      <li><strong>Objection / Restriction</strong> — object to or request that we restrict certain processing of your information.</li>
+      <li><strong>Withdraw Consent</strong> — where processing is based on consent, withdraw that consent at any time.</li>
+      <li><strong>Opt-Out of Marketing</strong> — unsubscribe using the link in marketing emails, or by contacting us.</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <span class="placeholder">[INSERT SUPPORT EMAIL]</span>. We will respond in accordance with applicable law.</p>
+    <p>If you are located in the <strong>European Economic Area (EEA), United Kingdom, or Switzerland</strong>, you may also have the right to lodge a complaint with your local data protection authority.</p>
+    <p>If you are a <strong>California resident</strong>, you may have additional rights under the California Consumer Privacy Act (CCPA), including the right to know, delete, and opt out of the "sale" or "sharing" of personal information (we do not sell or share personal information as defined under the CCPA).</p>
+
+    <h2>10. Children's Privacy</h2>
+    <p>The Service is intended for users who are <span class="placeholder">[INSERT MINIMUM AGE, e.g., "16 years of age or older"]</span>. We do not knowingly collect personal information from individuals under this age. If you believe we have inadvertently collected such information, please contact us at <span class="placeholder">[INSERT SUPPORT EMAIL]</span> so we can delete it.</p>
+
+    <h2>11. International Data Transfers</h2>
+    <p>Your information may be transferred to, stored, and processed in countries other than the one in which you reside, including <span class="placeholder">[INSERT COUNTRY/REGION, e.g., "the United States"]</span>. Where required, we implement appropriate safeguards (such as standard contractual clauses) to protect your information in accordance with this Privacy Policy and applicable law.</p>
+
+    <h2>12. Third-Party Links and Services</h2>
+    <p>Our website and Service may contain links to third-party websites or services (e.g., scholarship or internship listings from external organizations). We are not responsible for the privacy practices of these third parties, and we encourage you to review their privacy policies.</p>
+
+    <h2>13. Changes to This Privacy Policy</h2>
+    <p>We may update this Privacy Policy from time to time. If we make material changes, we will notify you by posting the updated policy on our website and updating the "Last Updated" date above, and, where appropriate, by email. Your continued use of our website or the Service after changes take effect constitutes acceptance of the updated Privacy Policy.</p>
+
+    <h2>14. Contact Us</h2>
+    <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us at:</p>
+    <div class="contact-block">
+      <p><strong><span class="placeholder">[INSERT LEGAL COMPANY NAME]</span></strong></p>
+      <p><span class="placeholder">[INSERT COMPANY ADDRESS]</span></p>
+      <p><span class="placeholder">[INSERT SUPPORT EMAIL]</span></p>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-left">
+      <span class="logo-mark" style="width:16px;height:16px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#94A3B8"/></svg>
+      </span>
+      © 2026 Starsct. Organize your universe.
+    </div>
+    <div class="footer-right">
+      <a href="index.html#features">Features</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="index.html#waitlist" class="footer-waitlist-btn">Join the Waitlist</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
 
