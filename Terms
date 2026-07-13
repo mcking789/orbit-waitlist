@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Starsct</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #09090B;
+    --surface: #101014;
+    --surface-2: #16161C;
+    --border: #232329;
+    --blue: #2563EB;
+    --accent: #60A5FA;
+    --text: #FFFFFF;
+    --muted: #94A3B8;
+    --faint: #55596b;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1,h2,h3, .display{
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .mono{
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  a{ color: var(--accent); text-decoration:none; }
+  a:hover{ text-decoration: underline; }
+
+  /* ---------- background stars ---------- */
+  .stars-bg{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .stars-bg::before,
+  .stars-bg::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+    animation: stars-drift 140s linear infinite;
+  }
+  .stars-bg::before{
+    background-image:
+      radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1.2px 1.2px at 120px 80px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.4px 1.4px at 200px 160px, rgba(96,165,250,0.85), transparent),
+      radial-gradient(1px 1px at 300px 40px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.3px 1.3px at 60px 220px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 260px 260px, rgba(96,165,250,0.7), transparent);
+    background-size: 340px 340px;
+    opacity: 0.7;
+  }
+  .stars-bg::after{
+    background-image:
+      radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 160px 40px, rgba(255,255,255,0.55), transparent),
+      radial-gradient(1px 1px at 240px 190px, rgba(96,165,250,0.6), transparent),
+      radial-gradient(1.2px 1.2px at 320px 260px, rgba(255,255,255,0.5), transparent);
+    background-size: 420px 420px;
+    animation-duration: 200s;
+    animation-direction: reverse;
+    opacity: 0.5;
+  }
+  @keyframes stars-drift{
+    from{ transform: translateY(0); }
+    to{ transform: translateY(-420px); }
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(9,9,11,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height: 76px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .logo-mark{ width: 22px; height: 22px; position:relative; }
+  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(96,165,250,0.6)); }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: 36px;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .nav-links a{ color: var(--muted); }
+  .nav-links a:hover{ color: var(--text); text-decoration:none; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor:pointer;
+    transition: all .18s ease;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(37,99,235,0.5), 0 0 4px rgba(96,165,250,0.4);
+  }
+  .btn-primary:hover{
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 26px rgba(96,165,250,0.75);
+    text-decoration:none;
+  }
+
+  /* ---------- legal content ---------- */
+  .legal-hero{
+    padding: 64px 0 32px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .legal-hero .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size: 11.5px;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .legal-hero .eyebrow::before{
+    content:'';
+    width:6px; height:6px;
+    border-radius:50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .legal-hero h1{
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .legal-hero .meta{
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .legal-body{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8px 0 100px;
+    color: var(--muted);
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+  .legal-body h2{
+    color: var(--text);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 40px 0 14px;
+  }
+  .legal-body h2:first-child{ margin-top: 0; }
+  .legal-body p{ margin-bottom: 14px; }
+  .legal-body ul, .legal-body ol{
+    margin: 0 0 14px 22px;
+  }
+  .legal-body li{ margin-bottom: 8px; }
+  .legal-body strong{ color: var(--text); font-weight: 600; }
+  .legal-body a{ color: var(--accent); }
+  .legal-body hr{
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+  .legal-body .placeholder{
+    color: var(--accent);
+    background: rgba(96,165,250,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.92em;
+  }
+  .legal-body .contact-block{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .legal-body .contact-block p{ margin-bottom: 4px; }
+  .legal-nav-crumb{
+    max-width: 760px;
+    margin: 0 auto;
+    padding-top: 28px;
+    font-size: 13.5px;
+    color: var(--faint);
+  }
+  .legal-nav-crumb a{ color: var(--faint); }
+  .legal-nav-crumb a:hover{ color: var(--muted); }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 44px 0;
+  }
+  footer .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-left{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    color: var(--faint);
+    font-size: 13.5px;
+  }
+  .footer-right{
+    display:flex;
+    align-items:center;
+    gap: 26px;
+    font-size: 13.5px;
+    color: var(--faint);
+  }
+  .footer-right a{ color: var(--faint); }
+  .footer-right a:hover{ color: var(--muted); text-decoration:none; }
+
+  @media (max-width: 700px){
+    .legal-hero{ padding: 44px 0 24px; }
+    .legal-hero h1{ font-size: 32px; }
+    .legal-body h2{ font-size: 19px; }
+    .nav-links{ gap: 16px; }
+    .nav-links span.mono{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-bg" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/>
+        </svg>
+      </span>
+      STARSCT
+    </a>
+    <div class="nav-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="index.html#waitlist" class="btn btn-primary">Join waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="legal-nav-crumb"><a href="index.html">← Back to Starsct</a></div>
+
+  <section class="legal-hero">
+    <div class="eyebrow mono">Legal</div>
+    <h1>Terms of Service</h1>
+    <div class="meta">Effective Date: <span class="placeholder">[INSERT EFFECTIVE DATE]</span> &nbsp;·&nbsp; Last Updated: <span class="placeholder">[INSERT LAST UPDATED DATE]</span></div>
+  </section>
+
+  <article class="legal-body">
+    <p>Welcome to Starsct. These Terms of Service ("Terms") govern your access to and use of the Starsct website, waitlist, and AI-powered productivity platform, including our AI assistant, planner, goal tracker, journal, opportunities feed, and dashboard (collectively, the "Service"), operated by <strong><span class="placeholder">[INSERT LEGAL COMPANY NAME]</span></strong> ("Starsct," "we," "us," or "our").</p>
+    <p>By accessing or using our website or the Service, joining our waitlist, or otherwise indicating your acceptance, you agree to be bound by these Terms. If you do not agree, please do not use our website or the Service.</p>
+
+    <hr>
+
+    <h2>1. Eligibility</h2>
+    <p>You must be at least <span class="placeholder">[INSERT MINIMUM AGE, e.g., "16 years old"]</span> to join the waitlist or use the Service. If you are under the age of majority in your jurisdiction, you may only use the Service with the involvement and consent of a parent or legal guardian, to the extent required by applicable law. By using the Service, you represent that you meet these requirements.</p>
+
+    <h2>2. The Waitlist</h2>
+    <p>Our current website allows you to join a waitlist by providing your name, email address, and role. Joining the waitlist:</p>
+    <ul>
+      <li>Does not guarantee access to the Service, a specific launch date, or any particular features.</li>
+      <li>May entitle you to receive product updates, early-access invitations, and related communications from us.</li>
+      <li>May be discontinued or modified by us at any time, without liability to you.</li>
+    </ul>
+    <p>We use a third-party form provider (Formspree) to collect and process waitlist submissions on our behalf.</p>
+
+    <h2>3. The Service</h2>
+    <p>Starsct is an AI-powered productivity platform intended to help students and young professionals plan, track, and pursue their goals through features that may include:</p>
+    <ul>
+      <li>An <strong>AI assistant</strong> for study help, scheduling, coding assistance, interview preparation, and productivity guidance</li>
+      <li>A <strong>planner</strong> for calendars, timetables, study/work schedules, and reminders</li>
+      <li><strong>Goal-tracking</strong> tools, including milestones, habits, and streaks</li>
+      <li>A <strong>journal</strong> for reflections, mood tracking, and private notes</li>
+      <li>An <strong>opportunities feed</strong> surfacing scholarships, internships, jobs, competitions, and career events</li>
+      <li>A <strong>dashboard</strong> summarizing your productivity metrics</li>
+    </ul>
+    <p>Features, functionality, and availability may change over time, and not all features may be available at launch or in all regions.</p>
+
+    <h2>4. AI-Generated Content and Recommendations</h2>
+    <p>The Service uses artificial intelligence to generate responses, suggestions, and recommendations (e.g., study plans, answers to questions, opportunity matches). You acknowledge and agree that:</p>
+    <ul>
+      <li>AI-generated content <strong>may be inaccurate, incomplete, or unsuitable</strong> for your specific situation.</li>
+      <li>AI-generated content is provided for <strong>informational and productivity-assistance purposes only</strong> and does not constitute professional, academic, legal, financial, or career advice.</li>
+      <li>You are solely responsible for evaluating and verifying any AI-generated content before relying on it, including opportunity listings, interview guidance, or coding help.</li>
+      <li>We do not guarantee the accuracy, completeness, or timeliness of any opportunity listings (e.g., scholarships, internships, jobs, competitions) surfaced through the Service, and you should independently verify such listings before applying or relying on them.</li>
+    </ul>
+
+    <h2>5. User Accounts (Future Service Use)</h2>
+    <p>When account creation becomes available, you agree to:</p>
+    <ul>
+      <li>Provide accurate and complete registration information.</li>
+      <li>Maintain the confidentiality of your login credentials.</li>
+      <li>Notify us promptly of any unauthorized use of your account.</li>
+      <li>Accept responsibility for all activity that occurs under your account.</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these Terms or that we reasonably believe pose a security risk.</p>
+
+    <h2>6. User Content</h2>
+    <p>"User Content" means any information, text, or data you submit to the Service, including planner entries, goals, journal entries, notes, and prompts submitted to the AI assistant.</p>
+    <ul>
+      <li><strong>Ownership.</strong> You retain ownership of your User Content.</li>
+      <li><strong>License to Us.</strong> You grant us a non-exclusive, worldwide, royalty-free license to host, store, process, and use your User Content solely to operate, maintain, and improve the Service, and as otherwise described in our Privacy Policy.</li>
+      <li><strong>Your Responsibility.</strong> You are solely responsible for your User Content and represent that you have the necessary rights to submit it and that it does not violate any applicable law or third-party rights.</li>
+    </ul>
+
+    <h2>7. Acceptable Use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Use the Service for any unlawful purpose or in violation of these Terms.</li>
+      <li>Submit false, misleading, or fraudulent information (including on the waitlist).</li>
+      <li>Attempt to gain unauthorized access to the Service, other accounts, or our systems.</li>
+      <li>Interfere with or disrupt the integrity or performance of the Service.</li>
+      <li>Use automated means (e.g., bots, scrapers) to access the Service without our prior written consent.</li>
+      <li>Use the AI assistant to generate content that is unlawful, harmful, harassing, or infringing on the rights of others.</li>
+      <li>Reverse-engineer, decompile, or attempt to extract the source code or underlying models of the Service, except as permitted by law.</li>
+      <li>Resell, sublicense, or commercially exploit the Service without our prior written consent.</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate access for users who violate this section.</p>
+
+    <h2>8. Intellectual Property</h2>
+    <p>The Service, including its design, software, branding, logos, and content (excluding User Content), is owned by Starsct or our licensors and is protected by intellectual property laws. Except as expressly permitted under these Terms, you may not copy, modify, distribute, or create derivative works based on the Service without our prior written consent.</p>
+
+    <h2>9. Third-Party Services and Links</h2>
+    <p>The Service may integrate with or link to third-party services (e.g., form processing, single sign-on providers, external opportunity listings). We are not responsible for the content, accuracy, or practices of third-party services, and your use of them is subject to their own terms and policies.</p>
+
+    <h2>10. Disclaimers</h2>
+    <p>THE SERVICE (INCLUDING THE WAITLIST AND ANY AI-GENERATED CONTENT) IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR ACCURACY. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, OR THAT AI-GENERATED CONTENT WILL BE ACCURATE OR RELIABLE.</p>
+    <p>THE SERVICE IS NOT A SUBSTITUTE FOR PROFESSIONAL ACADEMIC, CAREER, MEDICAL, OR MENTAL HEALTH ADVICE. IF YOU ARE EXPERIENCING A CRISIS OR NEED PROFESSIONAL SUPPORT, PLEASE CONSULT A QUALIFIED PROFESSIONAL OR APPROPRIATE SUPPORT SERVICE.</p>
+
+    <h2>11. Limitation of Liability</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL STARSCT, ITS AFFILIATES, OR THEIR RESPECTIVE OFFICERS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, OR GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICE, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+    <p>OUR TOTAL LIABILITY FOR ANY CLAIM ARISING OUT OF OR RELATING TO THESE TERMS OR THE SERVICE SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID US, IF ANY, IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR (B) <span class="placeholder">[INSERT NOMINAL AMOUNT, e.g., "USD $100"]</span>.</p>
+    <p>Some jurisdictions do not allow the exclusion or limitation of certain damages, so some of the above limitations may not apply to you.</p>
+
+    <h2>12. Indemnification</h2>
+    <p>You agree to indemnify and hold harmless Starsct and its affiliates, officers, employees, and agents from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising out of or related to your violation of these Terms, your User Content, or your misuse of the Service.</p>
+
+    <h2>13. Termination</h2>
+    <p>We may suspend or terminate your access to the waitlist or the Service at any time, with or without notice, including for violation of these Terms. You may stop using the Service or request removal from the waitlist at any time by contacting us at <span class="placeholder">[INSERT SUPPORT EMAIL]</span>. Sections of these Terms that by their nature should survive termination (e.g., Intellectual Property, Disclaimers, Limitation of Liability, Indemnification, Governing Law) will survive.</p>
+
+    <h2>14. Changes to the Service or These Terms</h2>
+    <p>We may modify, suspend, or discontinue the Service (or any part of it) at any time. We may also update these Terms from time to time. If we make material changes, we will notify you by posting the updated Terms on our website and updating the "Last Updated" date, and, where appropriate, by email. Your continued use of the Service after changes take effect constitutes acceptance of the updated Terms.</p>
+
+    <h2>15. Governing Law and Dispute Resolution</h2>
+    <p>These Terms are governed by the laws of <span class="placeholder">[INSERT GOVERNING LAW/JURISDICTION]</span>, without regard to its conflict-of-laws principles.</p>
+    <p>Any dispute arising out of or relating to these Terms or the Service shall be resolved through <span class="placeholder">[INSERT DISPUTE RESOLUTION MECHANISM, e.g., "binding arbitration in [LOCATION]" or "the courts located in [LOCATION]"]</span>, except that either party may seek injunctive or equitable relief in a court of competent jurisdiction to protect its intellectual property or confidential information.</p>
+
+    <h2>16. Miscellaneous</h2>
+    <ul>
+      <li><strong>Entire Agreement.</strong> These Terms, together with our Privacy Policy, constitute the entire agreement between you and Starsct regarding the Service and supersede any prior agreements.</li>
+      <li><strong>Severability.</strong> If any provision of these Terms is found unenforceable, the remaining provisions will remain in full force and effect.</li>
+      <li><strong>No Waiver.</strong> Our failure to enforce any right or provision of these Terms will not be considered a waiver of that right or provision.</li>
+      <li><strong>Assignment.</strong> You may not assign or transfer these Terms without our prior written consent. We may assign these Terms without restriction, including in connection with a merger, acquisition, or sale of assets.</li>
+      <li><strong>Force Majeure.</strong> We are not liable for any failure or delay resulting from circumstances beyond our reasonable control.</li>
+    </ul>
+
+    <h2>17. Contact Us</h2>
+    <p>If you have questions about these Terms, please contact us at:</p>
+    <div class="contact-block">
+      <p><strong><span class="placeholder">[INSERT LEGAL COMPANY NAME]</span></strong></p>
+      <p><span class="placeholder">[INSERT COMPANY ADDRESS]</span></p>
+      <p><span class="placeholder">[INSERT SUPPORT EMAIL]</span></p>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-left">
+      <span class="logo-mark" style="width:16px;height:16px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#94A3B8"/></svg>
+      </span>
+      © 2026 Starsct. Organize your universe.
+    </div>
+    <div class="footer-right">
+      <a href="index.html#features">Features</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="index.html#waitlist" class="footer-waitlist-btn">Join the Waitlist</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
