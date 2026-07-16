@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>Starsct — Build Your Future. Among The Stars.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,12 @@
 
   *{ margin:0; padding:0; box-sizing:border-box; }
 
-  html{ scroll-behavior:smooth; }
+  html{
+    scroll-behavior:smooth;
+    overflow-x: hidden;
+    width: 100%;
+    touch-action: pan-x pan-y;
+  }
 
   #waitlist, #features, #roadmap, #survey{
     scroll-margin-top: 90px;
@@ -33,7 +38,9 @@
     color: var(--text);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+    width: 100%;
     position: relative;
+    touch-action: pan-x pan-y;
   }
 
   h1,h2,h3, .display{
@@ -834,53 +841,73 @@
   /* ---------- footer ---------- */
   footer{
     border-top: 1px solid var(--border);
-    padding: 44px 0;
+    padding: 56px 0 40px;
   }
-  footer .wrap{
+  .footer-wrap{
     display:flex;
     align-items:center;
     justify-content:space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 28px 40px;
   }
-  .footer-left{
+  .footer-brand{
+    display:flex;
+    flex-direction:column;
+    gap: 7px;
+  }
+  .footer-logo{
     display:flex;
     align-items:center;
-    gap: 10px;
-    color: var(--faint);
-    font-size: 13.5px;
+    gap: 9px;
   }
-  .footer-right{
+  .footer-brand-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .footer-tagline{
+    font-size: 13px;
+    color: var(--faint);
+  }
+  .footer-links{
     display:flex;
     align-items:center;
-    gap: 26px;
+    flex-wrap: wrap;
+    gap: 6px 22px;
     font-size: 13.5px;
-    color: var(--faint);
   }
-  .footer-right a:hover{ color: var(--muted); }
-  .footer-waitlist-btn{
+  .footer-links a{
+    color: var(--faint);
+    padding: 6px 2px;
+    transition: color .18s ease;
+  }
+  .footer-links a:hover{ color: var(--text); }
+  .footer-divider{
+    width: 1px;
+    height: 14px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .footer-cta{
     display:inline-flex;
     align-items:center;
-    gap: 7px;
-    padding: 9px 18px;
-    border-radius: 100px;
-    background: var(--blue);
-    color: #fff;
-    font-size: 13px;
+    gap: 6px;
+    color: var(--accent) !important;
     font-weight: 600;
-    box-shadow: 0 0 14px rgba(37,99,235,0.4);
-    transition: all .18s ease;
   }
-  .footer-waitlist-btn:hover{
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 22px rgba(96,165,250,0.7);
-    transform: translateY(-2px);
-  }
-  .footer-waitlist-btn svg{
-    transition: transform .18s ease;
-  }
-  .footer-waitlist-btn:hover svg{
-    transform: translateY(-2px);
+  .footer-cta svg{ transition: transform .18s ease; }
+  .footer-cta:hover{ color: var(--text) !important; }
+  .footer-cta:hover svg{ transform: translateX(3px); }
+
+  @media (max-width: 768px){
+    .footer-wrap{
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer-brand{ align-items: center; }
+    .footer-links{ justify-content: center; }
+    .footer-divider{ display: none; }
   }
 
   /* ---------- responsive ---------- */
@@ -1238,24 +1265,29 @@
 </div>
 
 <footer>
-  <div class="wrap">
-    <div class="footer-left">
-      <span class="logo-mark" style="width:16px;height:16px;">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#94A3B8"/></svg>
-      </span>
-      © 2026 Starsct. Organize your universe.
+  <div class="wrap footer-wrap">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="logo-mark" style="width:18px;height:18px;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/></svg>
+        </span>
+        <span class="footer-brand-name">Starsct</span>
+      </div>
+      <p class="footer-tagline">© 2026 Starsct. Organize your universe.</p>
     </div>
-    <div class="footer-right">
+
+    <nav class="footer-links" aria-label="Footer">
       <a href="#features">Features</a>
       <a href="#roadmap">Roadmap</a>
-      <a href="#survey">Survey</a>
+      <span class="footer-divider" aria-hidden="true"></span>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
-      <a href="#waitlist" class="footer-waitlist-btn">
-        Join the Waitlist
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      <span class="footer-divider" aria-hidden="true"></span>
+      <a href="#waitlist" class="footer-cta">
+        Join waitlist
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-    </div>
+    </nav>
   </div>
 </footer>
 
@@ -1288,6 +1320,17 @@
 </div>
 
 <script>
+
+  // belt-and-suspenders zoom lock: iOS Safari sometimes ignores user-scalable=no
+  // in the viewport meta tag, so also block the pinch gesture directly.
+  document.addEventListener('gesturestart', (e) => e.preventDefault());
+  document.addEventListener('gesturechange', (e) => e.preventDefault());
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) e.preventDefault();
+    lastTouchEnd = now;
+  }, { passive: false });
 
   // roadmap track — arrow buttons + drag-to-scroll
   (function(){
