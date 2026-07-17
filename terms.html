@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms of Service — Starsct</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Terms of Service — Fennrise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #09090B;
-    --surface: #101014;
-    --surface-2: #16161C;
-    --border: #232329;
-    --blue: #2563EB;
-    --accent: #60A5FA;
+    --bg: #000000;
+    --surface: #0D0D0D;
+    --surface-2: #151515;
+    --border: #292929;
+    --accent: #FDE050;
     --text: #FFFFFF;
-    --muted: #94A3B8;
-    --faint: #55596b;
+    --muted: #9A9A9A;
+    --faint: #545454;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; overflow-x:hidden; }
 
   body{
     background: var(--bg);
@@ -29,6 +28,25 @@
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
     position: relative;
+  }
+
+  .ambient-glow{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1200px 780px at 50% -8%, rgba(253,224,80,0.16) 0%, rgba(253,224,80,0.05) 38%, transparent 68%),
+      radial-gradient(700px 600px at 100% 100%, rgba(253,224,80,0.05) 0%, transparent 65%);
+  }
+  .grain-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 
   h1,h2,h3, .display{
@@ -45,49 +63,6 @@
   a{ color: var(--accent); text-decoration:none; }
   a:hover{ text-decoration: underline; }
 
-  /* ---------- background stars ---------- */
-  .stars-bg{
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .stars-bg::before,
-  .stars-bg::after{
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-repeat: repeat;
-    animation: stars-drift 140s linear infinite;
-  }
-  .stars-bg::before{
-    background-image:
-      radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,0.9), transparent),
-      radial-gradient(1.2px 1.2px at 120px 80px, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.4px 1.4px at 200px 160px, rgba(96,165,250,0.85), transparent),
-      radial-gradient(1px 1px at 300px 40px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.3px 1.3px at 60px 220px, rgba(255,255,255,0.8), transparent),
-      radial-gradient(1px 1px at 260px 260px, rgba(96,165,250,0.7), transparent);
-    background-size: 340px 340px;
-    opacity: 0.7;
-  }
-  .stars-bg::after{
-    background-image:
-      radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 160px 40px, rgba(255,255,255,0.55), transparent),
-      radial-gradient(1px 1px at 240px 190px, rgba(96,165,250,0.6), transparent),
-      radial-gradient(1.2px 1.2px at 320px 260px, rgba(255,255,255,0.5), transparent);
-    background-size: 420px 420px;
-    animation-duration: 200s;
-    animation-direction: reverse;
-    opacity: 0.5;
-  }
-  @keyframes stars-drift{
-    from{ transform: translateY(0); }
-    to{ transform: translateY(-420px); }
-  }
-
   .wrap{
     position: relative;
     z-index: 1;
@@ -102,7 +77,7 @@
     top: 0;
     z-index: 50;
     backdrop-filter: blur(10px);
-    background: rgba(9,9,11,0.7);
+    background: rgba(0,0,0,0.7);
     border-bottom: 1px solid var(--border);
   }
   nav .wrap{
@@ -120,7 +95,7 @@
     color: var(--text);
   }
   .logo-mark{ width: 22px; height: 22px; position:relative; }
-  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(96,165,250,0.6)); }
+  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(253,224,80,0.6)); }
   .nav-links{
     display:flex;
     align-items:center;
@@ -145,13 +120,12 @@
     white-space: nowrap;
   }
   .btn-primary{
-    background: var(--blue);
-    color: #fff;
-    box-shadow: 0 0 16px rgba(37,99,235,0.5), 0 0 4px rgba(96,165,250,0.4);
+    background: var(--accent);
+    color: #000;
   }
   .btn-primary:hover{
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 26px rgba(96,165,250,0.75);
+    filter: brightness(1.08);
+    box-shadow: 0 0 22px rgba(253,224,80,0.4);
     text-decoration:none;
   }
 
@@ -216,7 +190,7 @@
   }
   .legal-body .placeholder{
     color: var(--accent);
-    background: rgba(96,165,250,0.08);
+    background: rgba(253,224,80,0.08);
     padding: 1px 6px;
     border-radius: 4px;
     font-size: 0.92em;
@@ -242,31 +216,133 @@
   /* ---------- footer ---------- */
   footer{
     border-top: 1px solid var(--border);
-    padding: 44px 0;
+    padding: 56px 0 32px;
+    position: relative;
   }
-  footer .wrap{
+  footer::before{
+    content:'';
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 140px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .footer-main{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
     flex-wrap: wrap;
-    gap: 16px;
+    padding-bottom: 36px;
   }
-  .footer-left{
+  .footer-brand{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 280px;
+  }
+  .footer-brand .brand-row{
     display:flex;
     align-items:center;
     gap: 10px;
-    color: var(--faint);
-    font-size: 13.5px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
   }
-  .footer-right{
+  .footer-brand .brand-row .logo-mark{ width:18px; height:18px; }
+  .footer-brand p{
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--faint);
+  }
+  .footer-nav{
+    display:flex;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .footer-col{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col .col-title{
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 2px;
+  }
+  .footer-col a{
+    font-size: 13.5px;
+    color: var(--muted);
+    transition: color .15s ease;
+    width: fit-content;
+  }
+  .footer-col a:hover{ color: var(--text); text-decoration:none; }
+  .footer-cta-col{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .footer-waitlist-btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .18s ease;
+  }
+  .footer-waitlist-btn:hover{
+    filter: brightness(1.08);
+    box-shadow: 0 0 22px rgba(253,224,80,0.45);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .footer-cta-col .footer-note{
+    font-size: 11.5px;
+    color: var(--faint);
+  }
+  .footer-legal{
     display:flex;
     align-items:center;
-    gap: 26px;
-    font-size: 13.5px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-legal .copyright{
+    font-size: 12.5px;
     color: var(--faint);
   }
-  .footer-right a{ color: var(--faint); }
-  .footer-right a:hover{ color: var(--muted); text-decoration:none; }
+  .footer-legal-links{
+    display:flex;
+    align-items:center;
+    gap: 22px;
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+  .footer-legal-links a{ color: var(--faint); }
+  .footer-legal-links a:hover{ color: var(--muted); text-decoration:none; }
+  .footer-legal-links .dot{
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  @media (max-width: 700px){
+    .footer-main{ flex-direction: column; gap: 36px; }
+    .footer-brand{ max-width: none; }
+    .footer-nav{ gap: 40px; }
+    .footer-cta-col{ align-items: flex-start; }
+    .footer-legal{ flex-direction: column; align-items: flex-start; }
+  }
 
   @media (max-width: 700px){
     .legal-hero{ padding: 44px 0 24px; }
@@ -283,27 +359,31 @@
 </head>
 <body>
 
-<div class="stars-bg" aria-hidden="true"></div>
+<div class="ambient-glow" aria-hidden="true"></div>
+<div class="grain-overlay" aria-hidden="true"></div>
 
 <nav>
   <div class="wrap">
     <a class="logo" href="index.html">
       <span class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/>
+          <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+          <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+          <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+          <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+          <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
         </svg>
       </span>
-      STARSCT
+      FENNRISE
     </a>
     <div class="nav-links">
-      <a href="privacy.html">Privacy Policy</a>
       <a href="index.html#waitlist" class="btn btn-primary">Join waitlist</a>
     </div>
   </div>
 </nav>
 
 <div class="wrap">
-  <div class="legal-nav-crumb"><a href="index.html">← Back to Starsct</a></div>
+  <div class="legal-nav-crumb"><a href="index.html">← Back to Fennrise</a></div>
 
   <section class="legal-hero">
     <div class="eyebrow mono">Legal</div>
@@ -312,7 +392,7 @@
   </section>
 
   <article class="legal-body">
-    <p>Welcome to Starsct. These Terms of Service ("Terms") govern your access to and use of the Starsct website, waitlist, and AI-powered productivity platform, including our AI assistant, planner, goal tracker, journal, opportunities feed, and dashboard (collectively, the "Service"), operated by <strong><span class="placeholder">StarSct</span></strong> ("Starsct," "we," "us," or "our").</p>
+    <p>Welcome to Fennrise. These Terms of Service ("Terms") govern your access to and use of the Fennrise website, waitlist, and AI-powered productivity platform, including our AI assistant, planner, goal tracker, journal, opportunities feed, and dashboard (collectively, the "Service"), operated by <strong><span class="placeholder">Fennrise</span></strong> ("Fennrise," "we," "us," or "our").</p>
     <p>By accessing or using our website or the Service, joining our waitlist, or otherwise indicating your acceptance, you agree to be bound by these Terms. If you do not agree, please do not use our website or the Service.</p>
 
     <hr>
@@ -330,7 +410,7 @@
     <p>We use a third-party form provider (Formspree) to collect and process waitlist submissions on our behalf.</p>
 
     <h2>3. The Service</h2>
-    <p>Starsct is an AI-powered productivity platform intended to help students and young professionals plan, track, and pursue their goals through features that may include:</p>
+    <p>Fennrise is an AI-powered productivity platform intended to help students and young professionals plan, track, and pursue their goals through features that may include:</p>
     <ul>
       <li>An <strong>AI assistant</strong> for study help, scheduling, coding assistance, interview preparation, and productivity guidance</li>
       <li>A <strong>planner</strong> for calendars, timetables, study/work schedules, and reminders</li>
@@ -383,7 +463,7 @@
     <p>We reserve the right to suspend or terminate access for users who violate this section.</p>
 
     <h2>8. Intellectual Property</h2>
-    <p>The Service, including its design, software, branding, logos, and content (excluding User Content), is owned by Starsct or our licensors and is protected by intellectual property laws. Except as expressly permitted under these Terms, you may not copy, modify, distribute, or create derivative works based on the Service without our prior written consent.</p>
+    <p>The Service, including its design, software, branding, logos, and content (excluding User Content), is owned by Fennrise or our licensors and is protected by intellectual property laws. Except as expressly permitted under these Terms, you may not copy, modify, distribute, or create derivative works based on the Service without our prior written consent.</p>
 
     <h2>9. Third-Party Services and Links</h2>
     <p>The Service may integrate with or link to third-party services (e.g., form processing, single sign-on providers, external opportunity listings). We are not responsible for the content, accuracy, or practices of third-party services, and your use of them is subject to their own terms and policies.</p>
@@ -393,28 +473,28 @@
     <p>THE SERVICE IS NOT A SUBSTITUTE FOR PROFESSIONAL ACADEMIC, CAREER, MEDICAL, OR MENTAL HEALTH ADVICE. IF YOU ARE EXPERIENCING A CRISIS OR NEED PROFESSIONAL SUPPORT, PLEASE CONSULT A QUALIFIED PROFESSIONAL OR APPROPRIATE SUPPORT SERVICE.</p>
 
     <h2>11. Limitation of Liability</h2>
-    <p>To the fullest extent permitted by applicable law, Starsct, its founders, affiliates, employees, partners, and representatives shall not be liable for any indirect, incidental, consequential, special, or punitive damages, including but not limited to loss of data, profits, business opportunities, or goodwill arising out of or related to your use of the website, waitlist, or future services.
-       Starsct is provided on an "as is" and "as available" basis. While we strive to provide accurate, reliable, and secure services, we do not guarantee that the website or future platform will always be uninterrupted, error-free, secure, or meet your expectations.
+    <p>To the fullest extent permitted by applicable law, Fennrise, its founders, affiliates, employees, partners, and representatives shall not be liable for any indirect, incidental, consequential, special, or punitive damages, including but not limited to loss of data, profits, business opportunities, or goodwill arising out of or related to your use of the website, waitlist, or future services.
+       Fennrise is provided on an "as is" and "as available" basis. While we strive to provide accurate, reliable, and secure services, we do not guarantee that the website or future platform will always be uninterrupted, error-free, secure, or meet your expectations.
        Nothing in these Terms shall limit or exclude any liability that cannot be limited or excluded under applicable law.</p>
    
     <h2>12. Indemnification</h2>
-    <p>You agree to indemnify and hold harmless Starsct and its affiliates, officers, employees, and agents from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising out of or related to your violation of these Terms, your User Content, or your misuse of the Service.</p>
+    <p>You agree to indemnify and hold harmless Fennrise and its affiliates, officers, employees, and agents from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising out of or related to your violation of these Terms, your User Content, or your misuse of the Service.</p>
 
     <h2>13. Termination</h2>
-    <p>We may suspend or terminate your access to the waitlist or the Service at any time, with or without notice, including for violation of these Terms. You may stop using the Service or request removal from the waitlist at any time by contacting us at <span class="placeholder">[starssctt@gmail.com]</span>. Sections of these Terms that by their nature should survive termination (e.g., Intellectual Property, Disclaimers, Limitation of Liability, Indemnification, Governing Law) will survive.</p>
+    <p>We may suspend or terminate your access to the waitlist or the Service at any time, with or without notice, including for violation of these Terms. You may stop using the Service or request removal from the waitlist at any time by contacting us at <span class="placeholder">[hello@fennrise.com]</span>. Sections of these Terms that by their nature should survive termination (e.g., Intellectual Property, Disclaimers, Limitation of Liability, Indemnification, Governing Law) will survive.</p>
 
     <h2>14. Changes to the Service or These Terms</h2>
     <p>We may modify, suspend, or discontinue the Service (or any part of it) at any time. We may also update these Terms from time to time. If we make material changes, we will notify you by posting the updated Terms on our website and updating the "Last Updated" date, and, where appropriate, by email. Your continued use of the Service after changes take effect constitutes acceptance of the updated Terms.</p>
 
     <h2>15. Governing Law and Dispute Resolution</h2>
      <p>These Terms shall be governed by and construed in accordance with the laws of <strong>India</strong>, without regard to its conflict of law principles.</p>
-     <p>If you have any concern, dispute, or claim arising out of or relating to these Terms or your use of the Starsct website or services, we encourage you to contact us first so that we can attempt to resolve the matter informally and in good faith.</p>
+     <p>If you have any concern, dispute, or claim arising out of or relating to these Terms or your use of the Fennrise website or services, we encourage you to contact us first so that we can attempt to resolve the matter informally and in good faith.</p>
      <p>If the dispute cannot be resolved through informal discussions within thirty (30) days, it shall be subject to the exclusive jurisdiction of the competent courts located in <strong>Pune, Maharashtra, India</strong>.</p>
      <p>Nothing in these Terms shall prevent either party from seeking injunctive or equitable relief from a court of competent jurisdiction to protect its intellectual property rights, confidential information, or other proprietary rights.</p>
     
     <h2>16. Miscellaneous</h2>
     <ul>
-      <li><strong>Entire Agreement.</strong> These Terms, together with our Privacy Policy, constitute the entire agreement between you and Starsct regarding the Service and supersede any prior agreements.</li>
+      <li><strong>Entire Agreement.</strong> These Terms, together with our Privacy Policy, constitute the entire agreement between you and Fennrise regarding the Service and supersede any prior agreements.</li>
       <li><strong>Severability.</strong> If any provision of these Terms is found unenforceable, the remaining provisions will remain in full force and effect.</li>
       <li><strong>No Waiver.</strong> Our failure to enforce any right or provision of these Terms will not be considered a waiver of that right or provision.</li>
       <li><strong>Assignment.</strong> You may not assign or transfer these Terms without our prior written consent. We may assign these Terms without restriction, including in connection with a merger, acquisition, or sale of assets.</li>
@@ -424,26 +504,61 @@
     <h2>17. Contact Us</h2>
     <p>If you have questions about these Terms, please contact us at:</p>
     <div class="contact-block">
-      <p><strong><span class="placeholder">StarSct</span></strong></p>
+      <p><strong><span class="placeholder">Fennrise</span></strong></p>
       <p><span class="placeholder">Pune , Marashtra , India</span></p>
-      <p><span class="placeholder">starssctt@gmail.com</span></p>
+      <p><span class="placeholder">hello@fennrise.com</span></p>
     </div>
   </article>
 </div>
 
 <footer>
   <div class="wrap">
-    <div class="footer-left">
-      <span class="logo-mark" style="width:16px;height:16px;">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#94A3B8"/></svg>
-      </span>
-      © 2026 Starsct. Organize your universe.
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="brand-row">
+          <span class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+              <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+              <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+              <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+              <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
+            </svg>
+          </span>
+          Fennrise
+        </div>
+        <p>Your future, rising — one place for the tools that actually keep you on track.</p>
+      </div>
+
+      <div class="footer-nav">
+        <div class="footer-col">
+          <span class="col-title">Explore</span>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#roadmap">Roadmap</a>
+        </div>
+        <div class="footer-col">
+          <span class="col-title">Legal</span>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+
+      <div class="footer-cta-col">
+        <a href="index.html#waitlist" class="footer-waitlist-btn">
+          Join the Waitlist
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </a>
+        <span class="footer-note">No spam, just launch updates.</span>
+      </div>
     </div>
-    <div class="footer-right">
-      <a href="index.html#features">Features</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="index.html#waitlist" class="footer-waitlist-btn">Join the Waitlist</a>
+
+    <div class="footer-legal">
+      <div class="copyright">© 2026 Fennrise. All rights reserved.</div>
+      <div class="footer-legal-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <span class="dot"></span>
+        <a href="terms.html">Terms of Service</a>
+      </div>
     </div>
   </div>
 </footer>
