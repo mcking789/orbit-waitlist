@@ -2,27 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Starsct — Build Your Future. Among The Stars.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title>Fennrise — Build Your Future. Watch It Rise.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #09090B;
-    --surface: #101014;
-    --surface-2: #16161C;
-    --border: #232329;
-    --blue: #2563EB;
-    --accent: #60A5FA;
+    --bg: #000000;
+    --surface: #0D0D0D;
+    --surface-2: #151515;
+    --border: #292929;
+    --accent: #FDE050;
     --text: #FFFFFF;
-    --muted: #94A3B8;
-    --faint: #55596b;
+    --muted: #9A9A9A;
+    --faint: #545454;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
 
-  html{ scroll-behavior:smooth; overflow-x:hidden; }
+  html{
+    scroll-behavior:smooth;
+    overflow-x: hidden;
+    width: 100%;
+    touch-action: pan-x pan-y;
+  }
 
   #waitlist, #features, #roadmap, #survey{
     scroll-margin-top: 90px;
@@ -33,7 +37,28 @@
     color: var(--text);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+    width: 100%;
     position: relative;
+    touch-action: pan-x pan-y;
+  }
+
+  .ambient-glow{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1200px 780px at 50% -8%, rgba(253,224,80,0.16) 0%, rgba(253,224,80,0.05) 38%, transparent 68%),
+      radial-gradient(700px 600px at 100% 100%, rgba(253,224,80,0.05) 0%, transparent 65%);
+  }
+  .grain-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 
   h1,h2,h3, .display{
@@ -48,49 +73,6 @@
   }
 
   a{ color: inherit; text-decoration:none; }
-
-  /* ---------- background stars ---------- */
-  .stars-bg{
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .stars-bg::before,
-  .stars-bg::after{
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-repeat: repeat;
-    animation: stars-drift 140s linear infinite;
-  }
-  .stars-bg::before{
-    background-image:
-      radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,0.9), transparent),
-      radial-gradient(1.2px 1.2px at 120px 80px, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.4px 1.4px at 200px 160px, rgba(96,165,250,0.85), transparent),
-      radial-gradient(1px 1px at 300px 40px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.3px 1.3px at 60px 220px, rgba(255,255,255,0.8), transparent),
-      radial-gradient(1px 1px at 260px 260px, rgba(96,165,250,0.7), transparent);
-    background-size: 340px 340px;
-    opacity: 0.7;
-  }
-  .stars-bg::after{
-    background-image:
-      radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 160px 40px, rgba(255,255,255,0.55), transparent),
-      radial-gradient(1px 1px at 240px 190px, rgba(96,165,250,0.6), transparent),
-      radial-gradient(1.2px 1.2px at 320px 260px, rgba(255,255,255,0.5), transparent);
-    background-size: 420px 420px;
-    animation-duration: 200s;
-    animation-direction: reverse;
-    opacity: 0.5;
-  }
-  @keyframes stars-drift{
-    from{ transform: translateY(0); }
-    to{ transform: translateY(-420px); }
-  }
 
   .wrap{
     position: relative;
@@ -126,7 +108,7 @@
     width: 22px; height: 22px;
     position:relative;
   }
-  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(96,165,250,0.6)); }
+  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(253,224,80,0.6)); }
   .nav-links{
     display:flex;
     align-items:center;
@@ -150,13 +132,12 @@
     white-space: nowrap;
   }
   .btn-primary{
-    background: var(--blue);
-    color: #fff;
-    box-shadow: 0 0 16px rgba(37,99,235,0.5), 0 0 4px rgba(96,165,250,0.4);
+    background: var(--accent);
+    color: #000;
   }
   .btn-primary:hover{
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 26px rgba(96,165,250,0.75);
+    filter: brightness(1.08);
+    box-shadow: 0 0 22px rgba(253,224,80,0.4);
   }
 
   /* ---------- hero ---------- */
@@ -202,11 +183,11 @@
     margin-bottom: 22px;
   }
   .hero h1 span{
-    background: linear-gradient(90deg, var(--blue), var(--accent));
+    background: linear-gradient(90deg, #FFF3C4, var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 18px rgba(96,165,250,0.45));
+    filter: drop-shadow(0 0 18px rgba(253,224,80,0.45));
   }
   .hero p.sub{
     font-size: 17.5px;
@@ -247,11 +228,11 @@
     border-bottom: none;
   }
   .form-card input:focus{
-    background: rgba(96,165,250,0.06);
+    background: rgba(253,224,80,0.06);
   }
   .form-card:has(input:focus){
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(96,165,250,0.15), 0 0 20px rgba(37,99,235,0.35);
+    box-shadow: 0 0 0 3px rgba(253,224,80,0.18), 0 0 24px rgba(253,224,80,0.4);
   }
   .form-card input::placeholder{ color: var(--faint); }
   .waitlist-form .btn{
@@ -290,7 +271,7 @@
   .avatar-stack .avatar:nth-child(1){ background: linear-gradient(135deg,#7c3aed,#4c1d95); }
   .avatar-stack .avatar:nth-child(2){ background: linear-gradient(135deg,#14b8a6,#065f52); }
   .avatar-stack .avatar:nth-child(3){ background: linear-gradient(135deg,#f59e0b,#7a4405); }
-  .avatar-stack .avatar:nth-child(4){ background: linear-gradient(135deg,#2563EB,#12266b); }
+  .avatar-stack .avatar:nth-child(4){ background: linear-gradient(135deg,#3B7DD8,#12266b); }
   .joined-text{
     font-size: 13.5px;
     color: var(--muted);
@@ -342,7 +323,7 @@
     border-radius: 22px;
     padding: 40px 34px 34px;
     text-align: center;
-    box-shadow: 0 0 0 1px rgba(96,165,250,0.06), 0 30px 80px rgba(0,0,0,0.55);
+    box-shadow: 0 0 0 1px rgba(253,224,80,0.06), 0 30px 80px rgba(0,0,0,0.55);
     transform: scale(.85) translateY(18px);
     opacity: 0;
     transition: transform .45s cubic-bezier(.2,1.4,.4,1), opacity .35s ease;
@@ -399,7 +380,7 @@
     stroke-linejoin: round;
     stroke-dasharray: 16;
     stroke-dashoffset: 16;
-    filter: drop-shadow(0 0 6px rgba(96,165,250,0.8));
+    filter: drop-shadow(0 0 6px rgba(253,224,80,0.8));
   }
   .success-overlay.show .success-check{
     animation: successCheck .35s ease forwards .55s;
@@ -523,8 +504,8 @@
     align-items:center;
     gap: 12px;
     padding: 20px 22px;
-    background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(96,165,250,0.05));
-    border: 1px solid rgba(96,165,250,0.35);
+    background: linear-gradient(135deg, rgba(253,224,80,0.10), rgba(253,224,80,0.03));
+    border: 1px solid rgba(253,224,80,0.35);
     border-radius: 14px;
     font-size: 17px;
     font-weight: 600;
@@ -546,21 +527,20 @@
     transition: border-color .2s ease, transform .2s ease, background-color .2s ease;
   }
   .audience-card:hover{
-    border-color: rgba(96,165,250,0.4);
-    box-shadow: 0 0 20px rgba(37,99,235,0.3);
+    border-color: rgba(253,224,80,0.4);
+    box-shadow: 0 0 24px rgba(253,224,80,0.35);
     transform: translateY(-3px);
   }
   .audience-card.active{
-    background: rgba(37,99,235,0.12);
+    background: rgba(253,224,80,0.10);
     border-color: var(--accent);
-    box-shadow: 0 0 24px rgba(37,99,235,0.4);
+    box-shadow: 0 0 28px rgba(253,224,80,0.45);
   }
   .audience-icon{
     width: 40px; height: 40px;
     border-radius: 10px;
-    background: rgba(37,99,235,0.15);
-    border: 1px solid rgba(96,165,250,0.25);
-    box-shadow: 0 0 18px rgba(37,99,235,0.35);
+    background: var(--surface-2);
+    border: 1px solid rgba(253,224,80,0.2);
     display:flex; align-items:center; justify-content:center;
     margin: 0 auto 14px;
     color: var(--accent);
@@ -584,16 +564,15 @@
     transition: border-color .2s ease, transform .2s ease;
   }
   .feature-card:hover{
-    border-color: rgba(96,165,250,0.4);
-    box-shadow: 0 0 20px rgba(37,99,235,0.3);
+    border-color: rgba(253,224,80,0.4);
+    box-shadow: 0 0 24px rgba(253,224,80,0.35);
     transform: translateY(-3px);
   }
   .feature-icon{
     width: 40px; height: 40px;
     border-radius: 10px;
-    background: rgba(37,99,235,0.15);
-    border: 1px solid rgba(96,165,250,0.25);
-    box-shadow: 0 0 18px rgba(37,99,235,0.35);
+    background: var(--surface-2);
+    border: 1px solid rgba(253,224,80,0.2);
     display:flex; align-items:center; justify-content:center;
     margin-bottom: 18px;
     color: var(--accent);
@@ -691,7 +670,7 @@
   .roadmap-arrow:hover{
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(96,165,250,0.1);
+    background: rgba(253,224,80,0.1);
   }
   .roadmap-arrow[disabled]{
     opacity: 0.25;
@@ -796,14 +775,14 @@
     transition: all .18s ease;
   }
   .survey-chip:hover{
-    border-color: rgba(96,165,250,0.4);
+    border-color: rgba(253,224,80,0.4);
     color: var(--text);
   }
   .survey-chip.active{
-    background: rgba(37,99,235,0.15);
+    background: rgba(253,224,80,0.14);
     border-color: var(--accent);
     color: var(--text);
-    box-shadow: 0 0 14px rgba(37,99,235,0.35);
+    box-shadow: 0 0 16px rgba(253,224,80,0.4);
   }
   .survey-actions{
     display:flex;
@@ -832,6 +811,7 @@
     .survey-actions .btn{ width:100%; }
   }
   /* ---------- footer ---------- */
+  /* ---------- footer ---------- */
   footer{
     border-top: 1px solid var(--border);
     padding: 56px 0 32px;
@@ -844,7 +824,7 @@
     transform: translateX(-50%);
     width: 140px; height: 1px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.6;
+    opacity: 0.5;
   }
   .footer-main{
     display:flex;
@@ -898,7 +878,7 @@
     width: fit-content;
   }
   .footer-col a:hover{ color: var(--text); }
-  .footer-cta{
+  .footer-cta-col{
     display:flex;
     flex-direction: column;
     align-items: flex-start;
@@ -910,21 +890,20 @@
     gap: 7px;
     padding: 10px 20px;
     border-radius: 100px;
-    background: var(--blue);
-    color: #fff;
+    background: var(--accent);
+    color: #000;
     font-size: 13px;
     font-weight: 600;
-    box-shadow: 0 0 14px rgba(37,99,235,0.4);
     transition: all .18s ease;
   }
   .footer-waitlist-btn:hover{
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 22px rgba(96,165,250,0.7);
+    filter: brightness(1.08);
+    box-shadow: 0 0 22px rgba(253,224,80,0.45);
     transform: translateY(-2px);
   }
   .footer-waitlist-btn svg{ transition: transform .18s ease; }
   .footer-waitlist-btn:hover svg{ transform: translateY(-2px); }
-  .footer-cta .footer-note{
+  .footer-cta-col .footer-note{
     font-size: 11.5px;
     color: var(--faint);
   }
@@ -959,7 +938,7 @@
     .footer-main{ flex-direction: column; gap: 36px; }
     .footer-brand{ max-width: none; }
     .footer-nav{ gap: 40px; }
-    .footer-cta{ align-items: flex-start; }
+    .footer-cta-col{ align-items: flex-start; }
     .footer-legal{ flex-direction: column; align-items: flex-start; }
   }
 
@@ -989,17 +968,22 @@
 </head>
 <body>
 
-<div class="stars-bg" aria-hidden="true"></div>
+<div class="ambient-glow" aria-hidden="true"></div>
+<div class="grain-overlay" aria-hidden="true"></div>
 
 <nav>
   <div class="wrap">
     <div class="logo">
       <span class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/>
+          <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+          <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+          <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+          <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+          <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
         </svg>
       </span>
-      STARSCT
+      FENNRISE
     </div>
     <div class="nav-links">
       <a href="#features">Features</a>
@@ -1013,7 +997,7 @@
   <section class="hero" id="waitlist">
     <div>
       <div class="eyebrow mono">Now building — early access opening soon</div>
-      <h1>Build your future.<br>Among the <span>stars</span>.</h1>
+      <h1>Build your future.<br>Watch it <span>rise</span>.</h1>
       <p class="sub">One place to plan your days, chase your goals, and find the opportunities that move you forward — instead of switching between ten different apps.</p>
 
       <!-- EDIT ME: change data-target to update the number, edit the sentence text freely -->
@@ -1048,7 +1032,7 @@
     <div class="section-head">
       <div class="eyebrow mono">Tell us about you</div>
       <h2>Who are you building your future as?</h2>
-      <p>Starsct works for wherever you are right now — pick what fits, it helps us tailor things for you.</p>
+      <p>Fennrise works for wherever you are right now — pick what fits, it helps us tailor things for you.</p>
     </div>
     <div class="audience-grid" id="audienceGrid">
       <div class="audience-card" data-role="High School Student">
@@ -1101,9 +1085,15 @@
       <div class="scatter-col">
         <div class="single-chip">
           <span class="logo-mark" style="width:20px;height:20px;">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/></svg>
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+              <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+              <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+              <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+              <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
+            </svg>
           </span>
-          Starsct
+          Fennrise
         </div>
       </div>
     </div>
@@ -1221,7 +1211,7 @@
   <section id="roadmap">
     <div class="section-head">
       <div class="eyebrow mono">What's next</div>
-      <h2>Further out in your universe.</h2>
+      <h2>Further out on the horizon.</h2>
       <p>Version 1 is the foundation. These are the tools we're building next, once the core experience is solid.</p>
     </div>
     <div class="roadmap-scroller">
@@ -1284,7 +1274,7 @@
     <form class="survey-card" id="surveyForm" action="https://formspree.io/f/xaqzjzgz" method="POST">
 
       <div class="survey-question">
-        <label>What should Starsct nail first?</label>
+        <label>What should Fennrise nail first?</label>
         <div class="survey-chips" data-field="priority">
           <button type="button" class="survey-chip" data-value="Planning & Scheduling">Planning &amp; Scheduling</button>
           <button type="button" class="survey-chip" data-value="AI Study Help">AI Study Help</button>
@@ -1323,11 +1313,17 @@
       <div class="footer-brand">
         <div class="brand-row">
           <span class="logo-mark">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/></svg>
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+              <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+              <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+              <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+              <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
+            </svg>
           </span>
-          Starsct
+          Fennrise
         </div>
-        <p>Organize your universe — one place for the tools that actually keep you on track.</p>
+        <p>Your future, rising — one place for the tools that actually keep you on track.</p>
       </div>
 
       <div class="footer-nav">
@@ -1343,7 +1339,7 @@
         </div>
       </div>
 
-      <div class="footer-cta">
+      <div class="footer-cta-col">
         <a href="#waitlist" class="footer-waitlist-btn">
           Join the Waitlist
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1353,7 +1349,7 @@
     </div>
 
     <div class="footer-legal">
-      <div class="copyright">© 2026 Starsct. All rights reserved.</div>
+      <div class="copyright">© 2026 Fennrise. All rights reserved.</div>
       <div class="footer-legal-links">
         <a href="privacy.html">Privacy Policy</a>
         <span class="dot"></span>
@@ -1384,14 +1380,25 @@
     </div>
 
     <div class="eyebrow mono success-eyebrow">You're in</div>
-    <h3 id="successTitle">Welcome to the universe<span id="successName"></span>.</h3>
-    <p>We'll email you the moment Starsct opens. Keep an eye on your inbox.</p>
+    <h3 id="successTitle">Welcome to the sunrise<span id="successName"></span>.</h3>
+    <p>We'll email you the moment Fennrise opens. Keep an eye on your inbox.</p>
 
     <button class="btn btn-primary success-ok" id="successOk">Got it</button>
   </div>
 </div>
 
 <script>
+
+  // belt-and-suspenders zoom lock: iOS Safari sometimes ignores user-scalable=no
+  // in the viewport meta tag, so also block the pinch gesture directly.
+  document.addEventListener('gesturestart', (e) => e.preventDefault());
+  document.addEventListener('gesturechange', (e) => e.preventDefault());
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) e.preventDefault();
+    lastTouchEnd = now;
+  }, { passive: false });
 
   // roadmap track — arrow buttons + drag-to-scroll
   (function(){
