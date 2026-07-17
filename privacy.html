@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Starsct</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Privacy Policy — Fennrise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #09090B;
-    --surface: #101014;
-    --surface-2: #16161C;
-    --border: #232329;
-    --blue: #2563EB;
-    --accent: #60A5FA;
+    --bg: #000000;
+    --surface: #0D0D0D;
+    --surface-2: #151515;
+    --border: #292929;
+    --accent: #FDE050;
     --text: #FFFFFF;
-    --muted: #94A3B8;
-    --faint: #55596b;
+    --muted: #9A9A9A;
+    --faint: #545454;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; overflow-x:hidden; }
 
   body{
     background: var(--bg);
@@ -29,6 +28,25 @@
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
     position: relative;
+  }
+
+  .ambient-glow{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1200px 780px at 50% -8%, rgba(253,224,80,0.16) 0%, rgba(253,224,80,0.05) 38%, transparent 68%),
+      radial-gradient(700px 600px at 100% 100%, rgba(253,224,80,0.05) 0%, transparent 65%);
+  }
+  .grain-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 
   h1,h2,h3, .display{
@@ -45,49 +63,6 @@
   a{ color: var(--accent); text-decoration:none; }
   a:hover{ text-decoration: underline; }
 
-  /* ---------- background stars ---------- */
-  .stars-bg{
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .stars-bg::before,
-  .stars-bg::after{
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-repeat: repeat;
-    animation: stars-drift 140s linear infinite;
-  }
-  .stars-bg::before{
-    background-image:
-      radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,0.9), transparent),
-      radial-gradient(1.2px 1.2px at 120px 80px, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.4px 1.4px at 200px 160px, rgba(96,165,250,0.85), transparent),
-      radial-gradient(1px 1px at 300px 40px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.3px 1.3px at 60px 220px, rgba(255,255,255,0.8), transparent),
-      radial-gradient(1px 1px at 260px 260px, rgba(96,165,250,0.7), transparent);
-    background-size: 340px 340px;
-    opacity: 0.7;
-  }
-  .stars-bg::after{
-    background-image:
-      radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 160px 40px, rgba(255,255,255,0.55), transparent),
-      radial-gradient(1px 1px at 240px 190px, rgba(96,165,250,0.6), transparent),
-      radial-gradient(1.2px 1.2px at 320px 260px, rgba(255,255,255,0.5), transparent);
-    background-size: 420px 420px;
-    animation-duration: 200s;
-    animation-direction: reverse;
-    opacity: 0.5;
-  }
-  @keyframes stars-drift{
-    from{ transform: translateY(0); }
-    to{ transform: translateY(-420px); }
-  }
-
   .wrap{
     position: relative;
     z-index: 1;
@@ -102,7 +77,7 @@
     top: 0;
     z-index: 50;
     backdrop-filter: blur(10px);
-    background: rgba(9,9,11,0.7);
+    background: rgba(0,0,0,0.7);
     border-bottom: 1px solid var(--border);
   }
   nav .wrap{
@@ -120,7 +95,7 @@
     color: var(--text);
   }
   .logo-mark{ width: 22px; height: 22px; position:relative; }
-  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(96,165,250,0.6)); }
+  .logo-mark svg{ width:100%; height:100%; filter: drop-shadow(0 0 6px rgba(253,224,80,0.6)); }
   .nav-links{
     display:flex;
     align-items:center;
@@ -145,13 +120,12 @@
     white-space: nowrap;
   }
   .btn-primary{
-    background: var(--blue);
-    color: #fff;
-    box-shadow: 0 0 16px rgba(37,99,235,0.5), 0 0 4px rgba(96,165,250,0.4);
+    background: var(--accent);
+    color: #000;
   }
   .btn-primary:hover{
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(96,165,250,0.15), 0 0 26px rgba(96,165,250,0.75);
+    filter: brightness(1.08);
+    box-shadow: 0 0 22px rgba(253,224,80,0.4);
     text-decoration:none;
   }
 
@@ -216,7 +190,7 @@
   }
   .legal-body .placeholder{
     color: var(--accent);
-    background: rgba(96,165,250,0.08);
+    background: rgba(253,224,80,0.08);
     padding: 1px 6px;
     border-radius: 4px;
     font-size: 0.92em;
@@ -242,31 +216,133 @@
   /* ---------- footer ---------- */
   footer{
     border-top: 1px solid var(--border);
-    padding: 44px 0;
+    padding: 56px 0 32px;
+    position: relative;
   }
-  footer .wrap{
+  footer::before{
+    content:'';
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 140px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .footer-main{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
     flex-wrap: wrap;
-    gap: 16px;
+    padding-bottom: 36px;
   }
-  .footer-left{
+  .footer-brand{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 280px;
+  }
+  .footer-brand .brand-row{
     display:flex;
     align-items:center;
     gap: 10px;
-    color: var(--faint);
-    font-size: 13.5px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
   }
-  .footer-right{
+  .footer-brand .brand-row .logo-mark{ width:18px; height:18px; }
+  .footer-brand p{
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--faint);
+  }
+  .footer-nav{
+    display:flex;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .footer-col{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col .col-title{
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 2px;
+  }
+  .footer-col a{
+    font-size: 13.5px;
+    color: var(--muted);
+    transition: color .15s ease;
+    width: fit-content;
+  }
+  .footer-col a:hover{ color: var(--text); text-decoration:none; }
+  .footer-cta-col{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .footer-waitlist-btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .18s ease;
+  }
+  .footer-waitlist-btn:hover{
+    filter: brightness(1.08);
+    box-shadow: 0 0 22px rgba(253,224,80,0.45);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .footer-cta-col .footer-note{
+    font-size: 11.5px;
+    color: var(--faint);
+  }
+  .footer-legal{
     display:flex;
     align-items:center;
-    gap: 26px;
-    font-size: 13.5px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-legal .copyright{
+    font-size: 12.5px;
     color: var(--faint);
   }
-  .footer-right a{ color: var(--faint); }
-  .footer-right a:hover{ color: var(--muted); text-decoration:none; }
+  .footer-legal-links{
+    display:flex;
+    align-items:center;
+    gap: 22px;
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+  .footer-legal-links a{ color: var(--faint); }
+  .footer-legal-links a:hover{ color: var(--muted); text-decoration:none; }
+  .footer-legal-links .dot{
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  @media (max-width: 700px){
+    .footer-main{ flex-direction: column; gap: 36px; }
+    .footer-brand{ max-width: none; }
+    .footer-nav{ gap: 40px; }
+    .footer-cta-col{ align-items: flex-start; }
+    .footer-legal{ flex-direction: column; align-items: flex-start; }
+  }
 
   @media (max-width: 700px){
     .legal-hero{ padding: 44px 0 24px; }
@@ -283,27 +359,31 @@
 </head>
 <body>
 
-<div class="stars-bg" aria-hidden="true"></div>
+<div class="ambient-glow" aria-hidden="true"></div>
+<div class="grain-overlay" aria-hidden="true"></div>
 
 <nav>
   <div class="wrap">
     <a class="logo" href="index.html">
       <span class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#60A5FA"/>
+          <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+          <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+          <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+          <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+          <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
         </svg>
       </span>
-      STARSCT
+      FENNRISE
     </a>
     <div class="nav-links">
-      <a href="terms.html">Terms of Service</a>
       <a href="index.html#waitlist" class="btn btn-primary">Join waitlist</a>
     </div>
   </div>
 </nav>
 
 <div class="wrap">
-  <div class="legal-nav-crumb"><a href="index.html">← Back to Starsct</a></div>
+  <div class="legal-nav-crumb"><a href="index.html">← Back to Fennrise</a></div>
 
   <section class="legal-hero">
     <div class="eyebrow mono">Legal</div>
@@ -312,14 +392,14 @@
   </section>
 
   <article class="legal-body">
-    <p>Starsct ("Starsct," "we," "us," or "our") provides an AI-powered productivity platform designed to help students and young professionals plan, track, and achieve their goals through tools such as an AI assistant, planner, goal tracker, journal, opportunities feed, and dashboard (collectively, the "Service").</p>
+    <p>Fennrise ("Fennrise," "we," "us," or "our") provides an AI-powered productivity platform designed to help students and young professionals plan, track, and achieve their goals through tools such as an AI assistant, planner, goal tracker, journal, opportunities feed, and dashboard (collectively, the "Service").</p>
     <p>This Privacy Policy explains how we collect, use, disclose, and protect information when you visit our website, join our waitlist, or use the Service. By using our website or the Service, you agree to the practices described in this Privacy Policy.</p>
     <p>If you do not agree with this Privacy Policy, please do not use our website or the Service.</p>
 
     <hr>
 
     <h2>1. Who We Are</h2>
-   <p>Starsct ("Starsct," "we," "us," or "our") is currently an independent project founded and operated by <strong>Siddhesh Sonawane</strong>, based in <strong>Pune, Maharashtra, India</strong>. If Starsct is incorporated or reorganized as a legal entity in the future, these Terms may be updated to reflect that change.</p>
+   <p>Fennrise ("Fennrise," "we," "us," or "our") is currently an independent project founded and operated by <strong>Siddhesh Sonawane</strong>, based in <strong>Pune, Maharashtra, India</strong>. If Fennrise is incorporated or reorganized as a legal entity in the future, these Terms may be updated to reflect that change.</p>
     
     <h2>2. Information We Collect</h2>
     <p><strong>Waitlist Sign-Up.</strong> When you join our waitlist, we collect:</p>
@@ -365,7 +445,7 @@
     <p>We do not sell your personal information.</p>
 
     <h2>4. AI Features and Your Data</h2>
-    <p>Starsct's AI assistant and related features (such as personalized planning suggestions) process the information you provide — including prompts, planner entries, goals, and journal content, where applicable — in order to generate helpful responses and recommendations.</p>
+    <p>Fennrise's AI assistant and related features (such as personalized planning suggestions) process the information you provide — including prompts, planner entries, goals, and journal content, where applicable — in order to generate helpful responses and recommendations.</p>
     <ul>
       <li>We may use <strong>third-party AI service providers</strong> to power these features. Any such providers are contractually required to handle your data in accordance with applicable privacy laws and are not permitted to use your data to train their own models without your consent, except as disclosed to you.</li>
       <li>Please avoid submitting sensitive information (such as government ID numbers, financial account details, or health information) to the AI assistant unless it is necessary for the specific feature you are using.</li>
@@ -402,12 +482,12 @@
       <li><strong>Withdraw Consent</strong> — where processing is based on consent, withdraw that consent at any time.</li>
       <li><strong>Opt-Out of Marketing</strong> — unsubscribe using the link in marketing emails, or by contacting us.</li>
     </ul>
-    <p>To exercise any of these rights, contact us at <span class="placeholder">starssctt@gmail.com</span>. We will respond in accordance with applicable law.</p>
+    <p>To exercise any of these rights, contact us at <span class="placeholder">hello@fennrise.com</span>. We will respond in accordance with applicable law.</p>
     <p>If you are located in the <strong>European Economic Area (EEA), United Kingdom, or Switzerland</strong>, you may also have the right to lodge a complaint with your local data protection authority.</p>
     <p>If you are a <strong>California resident</strong>, you may have additional rights under the California Consumer Privacy Act (CCPA), including the right to know, delete, and opt out of the "sale" or "sharing" of personal information (we do not sell or share personal information as defined under the CCPA).</p>
 
     <h2>10. Children's Privacy</h2>
-    <p>The Service is intended for users who are <span class="placeholder">10 years of age or older</span>. We do not knowingly collect personal information from individuals under this age. If you believe we have inadvertently collected such information, please contact us at <span class="placeholder">starssctt@gmail.com</span> so we can delete it.</p>
+    <p>The Service is intended for users who are <span class="placeholder">10 years of age or older</span>. We do not knowingly collect personal information from individuals under this age. If you believe we have inadvertently collected such information, please contact us at <span class="placeholder">hello@fennrise.com</span> so we can delete it.</p>
 
     <h2>11. International Data Transfers</h2>
     <p>Your information may be transferred to, stored, and processed in countries other than the one in which you reside, including <span class="placeholder">India</span>. Where required, we implement appropriate safeguards (such as standard contractual clauses) to protect your information in accordance with this Privacy Policy and applicable law.</p>
@@ -421,26 +501,61 @@
     <h2>14. Contact Us</h2>
     <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us at:</p>
     <div class="contact-block">
-      <p><strong><span class="placeholder">StarSct</span></strong></p>
+      <p><strong><span class="placeholder">Fennrise</span></strong></p>
       <p><span class="placeholder">India-Marashtra</span></p>
-      <p><span class="placeholder">starssctt@gmail.com</span></p>
+      <p><span class="placeholder">hello@fennrise.com</span></p>
     </div>
   </article>
 </div>
 
 <footer>
   <div class="wrap">
-    <div class="footer-left">
-      <span class="logo-mark" style="width:16px;height:16px;">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" fill="#94A3B8"/></svg>
-      </span>
-      © 2026 Starsct. Organize your universe.
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="brand-row">
+          <span class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="16.2" width="20" height="1.6" rx="0.8" fill="#FDE050" opacity="0.4"/>
+              <path d="M5 17 A7 7 0 0 1 19 17 Z" fill="#FDE050"/>
+              <rect x="11.1" y="2" width="1.8" height="4.4" rx="0.9" fill="#FDE050"/>
+              <rect x="3.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(-45 4.5 8.2)"/>
+              <rect x="18.6" y="6.1" width="1.8" height="4.2" rx="0.9" fill="#FDE050" transform="rotate(45 19.5 8.2)"/>
+            </svg>
+          </span>
+          Fennrise
+        </div>
+        <p>Your future, rising — one place for the tools that actually keep you on track.</p>
+      </div>
+
+      <div class="footer-nav">
+        <div class="footer-col">
+          <span class="col-title">Explore</span>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#roadmap">Roadmap</a>
+        </div>
+        <div class="footer-col">
+          <span class="col-title">Legal</span>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+
+      <div class="footer-cta-col">
+        <a href="index.html#waitlist" class="footer-waitlist-btn">
+          Join the Waitlist
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </a>
+        <span class="footer-note">No spam, just launch updates.</span>
+      </div>
     </div>
-    <div class="footer-right">
-      <a href="index.html#features">Features</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="index.html#waitlist" class="footer-waitlist-btn">Join the Waitlist</a>
+
+    <div class="footer-legal">
+      <div class="copyright">© 2026 Fennrise. All rights reserved.</div>
+      <div class="footer-legal-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <span class="dot"></span>
+        <a href="terms.html">Terms of Service</a>
+      </div>
     </div>
   </div>
 </footer>
