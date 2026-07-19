@@ -964,9 +964,82 @@
       animation: none !important;
     }
   }
+
+  /* ---------- scroll-following paper plane + doodle flight path ---------- */
+  .flight-layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .flight-path-svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .flight-path-base{
+    fill: none;
+    stroke: rgba(253,224,80,0.22);
+    stroke-width: 2;
+    stroke-dasharray: 2 10;
+    stroke-linecap: round;
+  }
+  .flight-path-drawn{
+    fill: none;
+    stroke: rgba(253,224,80,0.85);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 4px rgba(253,224,80,0.55));
+  }
+  .paper-plane{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)) drop-shadow(0 0 8px rgba(253,224,80,0.5));
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .paper-plane.visible{ opacity: 1; }
+  .paper-plane svg{ width:100%; height:100%; display:block; }
+
+  #planeTarget{ position: relative; }
+  .flight-sparkle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background: #FDE050;
+    box-shadow: 0 0 7px 1px rgba(253,224,80,0.9);
+    pointer-events: none;
+    opacity: 0;
+    animation: sparkle-pop .9s ease-out forwards;
+  }
+  @keyframes sparkle-pop{
+    0%{ opacity: 1; transform: translate(0,0) scale(1); }
+    100%{ opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .flight-layer{ display: none; }
+  }
+  @media (max-width: 640px){
+    .paper-plane{ width: 24px; height: 24px; }
+  }
+
 </style>
 </head>
 <body>
+<div class="flight-layer" id="flightLayer" aria-hidden="true"></div>
 
 <div class="ambient-glow" aria-hidden="true"></div>
 <div class="grain-overlay" aria-hidden="true"></div>
@@ -997,7 +1070,7 @@
   <section class="hero" id="waitlist">
     <div>
       <div class="eyebrow mono">Now building — early access opening soon</div>
-      <h1>Build your future.<br>Watch it <span>rise</span>.</h1>
+      <h1>Build your future.<br>Watch it <span id="riseWord">rise</span>.</h1>
       <p class="sub">One place to plan your days, chase your goals, and find the opportunities that move you forward — instead of switching between ten different apps.</p>
 
       <!-- EDIT ME: change data-target to update the number, edit the sentence text freely -->
@@ -1299,7 +1372,7 @@
 
       <div class="survey-actions">
         <button type="button" class="survey-skip" id="surveySkip">Skip for now</button>
-        <button type="submit" class="btn btn-primary">Send feedback</button>
+        <button type="submit" class="btn btn-primary" id="planeTarget">Send feedback</button>
       </div>
 
       <div class="form-msg" id="surveyMsg"></div>
@@ -1652,6 +1725,204 @@
   } else {
     joinedEls.forEach(animateCount);
   }
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return; // respect the site's existing reduced-motion convention — skip entirely
+
+  var layer = document.getElementById('flightLayer');
+  var startEl = document.getElementById('riseWord') || document.querySelector('.hero');
+  var targetEl = document.getElementById('planeTarget');
+  if (!layer || !startEl || !targetEl) return;
+  if (!('SVGGeometryElement' in window)) return; // feature detection — needs getPointAtLength support
+
+  var svg, basePath, drawnPath, plane, totalLength = 0;
+  var startY = 0, startX = 0, endY = 0, endX = 0;
+  var armed = true;   // hysteresis flag so the sparkle burst only fires once per downward pass
+  var landed = false; // true once the plane has arrived and faded out at the button
+
+  var SVG_NS = "http://www.w3.org/2000/svg";
+
+  function buildPath(){
+    var docWidth = document.documentElement.clientWidth;
+    var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+    var startRect = startEl.getBoundingClientRect();
+    var targetRect = targetEl.getBoundingClientRect();
+    startY = startRect.bottom + window.scrollY - 4;
+    startX = startRect.left + window.scrollX + startRect.width / 2;
+    endY = targetRect.top + window.scrollY + targetRect.height / 2;
+    endX = targetRect.left + window.scrollX + targetRect.width / 2;
+
+    // Keep the doodle's side-to-side swing comfortably inside the viewport on any device.
+    var margin = Math.max(26, docWidth * 0.09);
+    var centerX = docWidth / 2;
+    var amplitude = Math.min(docWidth * 0.22, 130, centerX - margin);
+    if (amplitude < 12) amplitude = 12;
+    var wavelength = Math.max(220, Math.min(360, Math.abs(endY - startY) / 6));
+
+    layer.style.height = docHeight + 'px';
+
+    layer.innerHTML = '';
+    svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('class', 'flight-path-svg');
+    svg.setAttribute('width', docWidth);
+    svg.setAttribute('height', docHeight);
+
+    basePath = document.createElementNS(SVG_NS, 'path');
+    basePath.setAttribute('class', 'flight-path-base');
+    drawnPath = document.createElementNS(SVG_NS, 'path');
+    drawnPath.setAttribute('class', 'flight-path-drawn');
+
+    // Build a hand-drawn-looking wavy line: the baseline travels directly
+    // from the "rise" word to the button the whole way, with an organic
+    // wobble layered on top that fades in at launch and fades out before
+    // landing. Because the baseline already heads toward the button from
+    // the start, there's no late "correction" — the curve eases in the
+    // whole time instead of suddenly straightening out at the end.
+    var span = Math.max(endY - startY, 1);
+    var points = [];
+    var step = 10;
+    for (var y = startY; y <= endY; y += step){
+      var t = (y - startY) / span; // 0 -> 1 along the flight
+      var baseX = startX + (endX - startX) * t;
+
+      // Smooth envelope: fades in over the first 15%, holds, fades out
+      // over the last 30% — smoothstep on both edges so there's no kink.
+      var envelope = 1;
+      if (t < 0.15){
+        var lt = t / 0.15;
+        envelope = lt * lt * (3 - 2 * lt);
+      } else if (t > 0.7){
+        var st = Math.min(1, (t - 0.7) / 0.3);
+        envelope = 1 - (st * st * (3 - 2 * st));
+      }
+
+      var wobble = Math.sin(y / wavelength) * amplitude + Math.sin(y / (wavelength * 0.4) + 1.3) * (amplitude * 0.18);
+      var x = baseX + wobble * envelope;
+      points.push([x, y]);
+    }
+    points.push([endX, endY]);
+
+    var d = 'M ' + points[0][0].toFixed(1) + ' ' + points[0][1].toFixed(1);
+    for (var i = 1; i < points.length; i++){
+      d += ' L ' + points[i][0].toFixed(1) + ' ' + points[i][1].toFixed(1);
+    }
+
+    basePath.setAttribute('d', d);
+    drawnPath.setAttribute('d', d);
+
+    svg.appendChild(basePath);
+    svg.appendChild(drawnPath);
+    layer.appendChild(svg);
+
+    plane = document.createElement('div');
+    plane.className = 'paper-plane';
+    plane.innerHTML = '<svg viewBox="0 0 24 24" fill="none">' +
+      '<path d="M3 11.5L20.5 3.5L14 20.5L11 13.5L3 11.5Z" fill="#FDE050" stroke="#FDE050" stroke-linejoin="round"/>' +
+      '<path d="M11 13.5L20.5 3.5" stroke="#7a5a00" stroke-width="0.8" opacity="0.5"/>' +
+      '</svg>';
+    layer.appendChild(plane);
+
+    totalLength = drawnPath.getTotalLength();
+    drawnPath.style.strokeDasharray = totalLength;
+    drawnPath.style.strokeDashoffset = totalLength;
+  }
+
+  function spawnSparkles(){
+    var count = 26;
+    for (var i = 0; i < count; i++){
+      var s = document.createElement('span');
+      s.className = 'flight-sparkle';
+      var angle = (Math.PI * 2 * i) / count + Math.random() * 0.35;
+      var dist = 24 + Math.random() * 36;
+      var size = 5 + Math.random() * 5;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.marginLeft = (-size / 2) + 'px';
+      s.style.marginTop = (-size / 2) + 'px';
+      s.style.setProperty('--sx', (Math.cos(angle) * dist).toFixed(1) + 'px');
+      s.style.setProperty('--sy', (Math.sin(angle) * dist).toFixed(1) + 'px');
+      s.style.animationDelay = (Math.random() * 0.18) + 's';
+      targetEl.appendChild(s);
+      (function(node){
+        setTimeout(function(){ node.remove(); }, 1200);
+      })(s);
+    }
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      if (!totalLength) return;
+
+      var readingLine = window.scrollY + window.innerHeight * 0.5;
+      var progress = (readingLine - startY) / Math.max(endY - startY, 1);
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+
+      // Safety net: if the target ever sits low enough on the page that
+      // the middle of the viewport can't physically reach it, force full
+      // progress once the user has scrolled as far as the page allows.
+      var docHeightNow = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      var maxScrollY = Math.max(docHeightNow - window.innerHeight, 0);
+      if (window.scrollY >= maxScrollY - 1){
+        progress = 1;
+      }
+
+      drawnPath.style.strokeDashoffset = (totalLength * (1 - progress)).toFixed(1);
+
+      var pt = drawnPath.getPointAtLength(totalLength * progress);
+      var aheadLen = Math.min(totalLength, totalLength * progress + 6);
+      var ahead = drawnPath.getPointAtLength(aheadLen);
+      var angle = Math.atan2(ahead.y - pt.y, ahead.x - pt.x) * (180 / Math.PI);
+
+      plane.style.transform = 'translate(-50%, -50%) translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px) rotate(' + (angle + 45).toFixed(1) + 'deg)';
+
+      if (progress > 0.01 && progress < 0.97 && !landed){
+        plane.classList.add('visible');
+      } else {
+        plane.classList.remove('visible');
+      }
+
+      if (progress >= 0.97 && armed){
+        armed = false;
+        landed = true;
+        plane.classList.remove('visible');
+        spawnSparkles();
+      } else if (progress < 0.9){
+        armed = true;
+        landed = false;
+      }
+    });
+  }
+
+  var resizeTimer;
+  function onResize(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      buildPath();
+      onScroll();
+    }, 200);
+  }
+
+  try {
+    buildPath();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', function(){ buildPath(); onScroll(); });
+    onScroll();
+  } catch (e) {
+    if (layer) layer.style.display = 'none';
+  }
+})();
 </script>
 
 </body>
