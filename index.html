@@ -971,7 +971,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 4;
+    z-index: 0;
     pointer-events: none;
     overflow: visible;
   }
@@ -1741,6 +1741,7 @@
   if (!('SVGGeometryElement' in window)) return; // feature detection — needs getPointAtLength support
 
   var svg, basePath, drawnPath, plane, totalLength = 0;
+  var cachedMaxScrollY = 0;
   var startY = 0, startX = 0, endY = 0, endX = 0;
   var armed = true;   // hysteresis flag so the sparkle burst only fires once per downward pass
   var landed = false; // true once the plane has arrived and faded out at the button
@@ -1831,6 +1832,12 @@
     totalLength = drawnPath.getTotalLength();
     drawnPath.style.strokeDasharray = totalLength;
     drawnPath.style.strokeDashoffset = totalLength;
+
+    // Cached here (rebuilt only on real layout changes) instead of read
+    // fresh on every scroll frame — querying scrollHeight forces a
+    // synchronous layout flush, which was a real cost on every frame and
+    // a direct contributor to the mobile scroll lag.
+    cachedMaxScrollY = Math.max(docHeight - window.innerHeight, 0);
   }
 
   function spawnSparkles(){
@@ -1871,9 +1878,7 @@
       // Safety net: if the target ever sits low enough on the page that
       // the middle of the viewport can't physically reach it, force full
       // progress once the user has scrolled as far as the page allows.
-      var docHeightNow = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      var maxScrollY = Math.max(docHeightNow - window.innerHeight, 0);
-      if (window.scrollY >= maxScrollY - 1){
+      if (window.scrollY >= cachedMaxScrollY - 1){
         progress = 1;
       }
 
@@ -1905,9 +1910,18 @@
   }
 
   var resizeTimer;
+  var lastWidth = document.documentElement.clientWidth;
   function onResize(){
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function(){
+      // Mobile browsers fire 'resize' when the address bar shows/hides
+      // during normal scrolling — that's a height-only change, not a real
+      // layout change, and rebuilding the whole path for it is what was
+      // causing the lag. Only rebuild when the width actually changes
+      // (window resize on desktop, or a phone orientation change).
+      var currentWidth = document.documentElement.clientWidth;
+      if (currentWidth === lastWidth) return;
+      lastWidth = currentWidth;
       buildPath();
       onScroll();
     }, 200);
@@ -1916,7 +1930,11 @@
   try {
     buildPath();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('orientationchange', function(){
+      lastWidth = -1; // force a rebuild after rotation regardless of width reading order
+      onResize();
+    });
     window.addEventListener('load', function(){ buildPath(); onScroll(); });
     onScroll();
   } catch (e) {
